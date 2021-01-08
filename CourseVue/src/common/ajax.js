@@ -52,18 +52,18 @@ axiosInstance.interceptors.response.use(
 
     if (code === -1) {
       innerMessage("info", "需要登录");
-      setTimeout(() => (window.location.href = "/login"), 250);
+      setTimeout(() => (window.location.href = "/#/login"), 250);
       return Promise.reject(new Error("NO_LOGIN"));
     } else if (code === 1) {
       innerMessage("error", "错误: " + message);
       return Promise.reject(new Error("FAIL"));
     } else if (code === 2) {
       innerMessage("info", "您不是此角色");
-      setTimeout(() => (window.location.href = "/login"), 250);
+      setTimeout(() => (window.location.href = "/#/login"), 250);
       return Promise.reject(new Error("ERROR_ROLE"));
     } else if (code === 3) {
       innerMessage("info", "您没有此权限");
-      setTimeout(() => (window.location.href = "/login"), 250);
+      setTimeout(() => (window.location.href = "/#/login"), 250);
       return Promise.reject(new Error("NO_PERMISSION"));
     } else if (code === 4) {
       let errorMessage = "请求参数错误";
@@ -79,7 +79,7 @@ axiosInstance.interceptors.response.use(
 
     if (typeof error.response === "undefined") {
       innerMessage("error", "与后端服务器通信失败");
-      vueInstance.instance.$router.push({ name: "login" });
+      vueInstance.instance.$router.push({ name: "/#/login" });
     } else if (error.response.status >= 400) {
       innerMessage("error", "HTTP错误: " + error.response.status);
     }

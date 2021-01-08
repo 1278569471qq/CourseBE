@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="BRANCH:master" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </select>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="e0eb15f2-7bf6-478f-adfc-e7cecc390e58" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/CourseVue/src/common/ajax.js" beforeDir="false" afterPath="$PROJECT_DIR$/CourseVue/src/common/ajax.js" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
+  </component>
+  <component name="ProjectId" id="1mmDz5fdCDOCa7j6rQZlQ67cOEy" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+  </component>
+  <component name="RunManager">
+    <configuration name="Application" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="course-system" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.rainng.coursesystem.Application" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="e0eb15f2-7bf6-478f-adfc-e7cecc390e58" name="Default Changelist" comment="" />
+      <created>1610090131299</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1610090131299</updated>
+      <workItem from="1610090133658" duration="456000" />
+      <workItem from="1610090612031" duration="1353000" />
+      <workItem from="1610093525980" duration="9122000" />
+      <workItem from="1610111816338" duration="80000" />
+      <workItem from="1610112303470" duration="609000" />
+      <workItem from="1610125608680" duration="1823000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="master" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="100" y="123" width="1592" height="897" key="DiffContextDialog" timestamp="1610127206413">
+      <screen x="0" y="23" width="1792" height="1097" />
+    </state>
+    <state x="100" y="123" width="1592" height="897" key="DiffContextDialog/-371.-1417.2560.1417/0.23.1792.1097@0.23.1792.1097" timestamp="1610112476817" />
+    <state x="100" y="123" width="1592" height="897" key="DiffContextDialog/0.23.1792.1097@0.23.1792.1097" timestamp="1610127206413" />
+    <state x="484" y="313" key="IDE.errors.dialog" timestamp="1610125380778">
+      <screen x="0" y="23" width="1792" height="1097" />
+    </state>
+    <state x="484" y="313" key="IDE.errors.dialog/-371.-1417.2560.1417/0.23.1792.1097@0.23.1792.1097" timestamp="1610101131354" />
+    <state x="484" y="313" key="IDE.errors.dialog/0.23.1792.1097@0.23.1792.1097" timestamp="1610125380778" />
+    <state x="397" y="210" key="SettingsEditor" timestamp="1610090589150">
+      <screen x="0" y="23" width="1792" height="1097" />
+    </state>
+    <state x="397" y="210" key="SettingsEditor/-371.-1417.2560.1417/0.23.1792.1097@0.23.1792.1097" timestamp="1610090589150" />
+    <state x="496" y="311" key="Vcs.Push.Dialog.v2" timestamp="1610127204581">
+      <screen x="0" y="23" width="1792" height="1097" />
+    </state>
+    <state x="496" y="311" key="Vcs.Push.Dialog.v2/-371.-1417.2560.1417/0.23.1792.1097@0.23.1792.1097" timestamp="1610102729215" />
+    <state x="496" y="311" key="Vcs.Push.Dialog.v2/0.23.1792.1097@0.23.1792.1097" timestamp="1610127204581" />
+    <state x="684" y="492" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1610125812526">
+      <screen x="0" y="23" width="1792" height="1097" />
+    </state>
+    <state x="684" y="492" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/-371.-1417.2560.1417/0.23.1792.1097@0.23.1792.1097" timestamp="1610112483723" />
+    <state x="684" y="492" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.23.1792.1097@0.23.1792.1097" timestamp="1610125812526" />
+    <state x="593" y="328" width="826" height="486" key="find.popup" timestamp="1610126551478">
+      <screen x="0" y="23" width="1792" height="1097" />
+    </state>
+    <state x="593" y="328" width="738" height="486" key="find.popup/-371.-1417.2560.1417/0.23.1792.1097@0.23.1792.1097" timestamp="1610106150588" />
+    <state x="593" y="328" width="826" height="486" key="find.popup/0.23.1792.1097@0.23.1792.1097" timestamp="1610126551478" />
+    <state x="620" y="291" key="git4idea.branch.GitSmartOperationDialog" timestamp="1610112477947">
+      <screen x="0" y="23" width="1792" height="1097" />
+    </state>
+    <state x="620" y="291" key="git4idea.branch.GitSmartOperationDialog/-371.-1417.2560.1417/0.23.1792.1097@0.23.1792.1097" timestamp="1610112477947" />
+    <state x="561" y="268" width="670" height="676" key="search.everywhere.popup" timestamp="1610098051984">
+      <screen x="0" y="23" width="1792" height="1097" />
+    </state>
+    <state x="561" y="268" width="670" height="676" key="search.everywhere.popup/-371.-1417.2560.1417/0.23.1792.1097@0.23.1792.1097" timestamp="1610098051984" />
+  </component>
+</project>
