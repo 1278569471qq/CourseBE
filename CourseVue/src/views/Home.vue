@@ -3,7 +3,7 @@
     <div class="crumbs">
       <el-breadcrumb separator="/">
         <el-breadcrumb-item>
-          <i class="el-icon-fa fa-id-badge"></i> 首页-山师教务要闻
+          <i class="el-icon-fa fa-id-badge"></i> 首页-教务要闻
         </el-breadcrumb-item>
       </el-breadcrumb>
     </div>
