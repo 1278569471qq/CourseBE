@@ -80,6 +80,9 @@ public class SdnuNewsManager extends BaseManager {
                 String url = BASE_URL + aTag.attr("href");
                 String title = aTag.text();
                 String date = dateTag.text();
+                if (newsList.size() == 10) {
+                    break;
+                }
                 newsList.add(new SdnuNewsBO(title, date, url));
             }
         }
