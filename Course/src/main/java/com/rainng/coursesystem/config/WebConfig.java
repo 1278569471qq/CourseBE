@@ -26,6 +26,6 @@ public class WebConfig implements WebMvcConfigurer {
                 .allowedMethods("*")
                 .allowedHeaders("*")
                 .allowCredentials(true)
-                .allowedOrigins("http://localhost:8080");
+                .allowedOrigins("http://www.zzxblog.top:8080");
     }
 }
