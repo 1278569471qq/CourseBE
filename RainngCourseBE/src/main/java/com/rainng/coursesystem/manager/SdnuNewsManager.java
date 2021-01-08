@@ -19,8 +19,8 @@ import java.util.Map;
 public class SdnuNewsManager extends BaseManager {
     private static final int CRAWL_INTERVAL = 60 * 60 * 1000;
     private static final int CRAWL_TIMEOUT = 30 * 1000;
-    private static final String CRAWL_TARGET_URL = "http://www.bkjy.sdnu.edu.cn/xszq1.htm";
-    private static final String BASE_URL = "http://www.bkjy.sdnu.edu.cn/";
+    private static final String CRAWL_TARGET_URL = "https://www.cisau.com.cn/html/list_1469.html";
+    private static final String BASE_URL = "https://www.cisau.com.cn/";
 
     private final SdnuNewsDAO sdnuNewsDAO;
 
@@ -34,9 +34,9 @@ public class SdnuNewsManager extends BaseManager {
         List<SdnuNewsBO> newsList = new ArrayList<>(map.size());
         for (String key : map.keySet()) {
             String value = map.get(key);
-            // 2019/01/01http://host/path
-            String date = value.substring(0, 10);
-            String url = value.substring(10);
+            String[] split = value.split("&&");
+            String date = split[0];
+            String url = split[1];
             newsList.add(new SdnuNewsBO(key, date, url));
         }
 
@@ -53,7 +53,7 @@ public class SdnuNewsManager extends BaseManager {
         List<SdnuNewsBO> newsList = parseNews(pageDoc);
         sdnuNewsDAO.clear();
         for (SdnuNewsBO news : newsList) {
-            sdnuNewsDAO.addNews(news.getTitle(), news.getDate() + news.getUrl());
+            sdnuNewsDAO.addNews(news.getTitle(), news.getDate() + "&&" + news.getUrl());
         }
     }
 
@@ -70,24 +70,19 @@ public class SdnuNewsManager extends BaseManager {
 
     private List<SdnuNewsBO> parseNews(Document pageDoc) {
         Elements elements = pageDoc.body()
-                .getElementsByClass("TB3").get(0)
-                .getElementsByTag("table").get(0)
-                .getElementsByTag("tr");
-
+                .getElementsByClass("noborder");
         List<SdnuNewsBO> newsList = new ArrayList<>();
-        for (Element element : elements) {
-            if (!element.attr("id").startsWith("line")) {
-                continue;
+        for (Element noborderElement : elements) {
+            Elements lis = noborderElement.getElementsByTag("li");
+            for (Element element : lis) {
+                Element aTag = element.getElementsByTag("a").get(0);
+                Element dateTag = element.getElementsByTag("span").get(0);
+                String url = BASE_URL + aTag.attr("href");
+                String title = aTag.text();
+                String date = dateTag.text();
+                newsList.add(new SdnuNewsBO(title, date, url));
             }
-
-            Element aTag = element.getElementsByTag("a").get(0);
-            Element dateTag = element.getElementsByTag("td").get(2);
-            String url = BASE_URL + aTag.attr("href");
-            String title = aTag.text();
-            String date = dateTag.text();
-            newsList.add(new SdnuNewsBO(title, date, url));
         }
-
         return newsList;
     }
 }

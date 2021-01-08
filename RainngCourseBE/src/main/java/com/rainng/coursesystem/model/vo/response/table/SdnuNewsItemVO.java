@@ -14,7 +14,7 @@ import java.util.List;
 public class SdnuNewsItemVO {
     private String title;
 
-    @JsonFormat(pattern = "yyyy/MM/dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date date;
 
     private String url;
@@ -25,7 +25,7 @@ public class SdnuNewsItemVO {
         vo.setUrl(bo.getUrl());
 
         try {
-            SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             vo.setDate(format.parse(bo.getDate()));
         } catch (ParseException ex) {
             ex.printStackTrace();
