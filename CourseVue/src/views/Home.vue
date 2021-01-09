@@ -38,13 +38,8 @@
           <div class="aside-container">
             <el-card :body-style="{ padding: '0px' }">
               <div style="padding: 20px">
-                <div>
-                  <el-link href="https://element.eleme.io" target="_blank">默认链接</el-link>
-                  <el-link type="primary">主要链接</el-link>
-                  <el-link type="success">成功链接</el-link>
-                  <el-link type="warning">警告链接</el-link>
-                  <el-link type="danger">危险链接</el-link>
-                  <el-link type="info">信息链接</el-link>
+                <div v-for = "item in tableNewData" :key="item">
+                  <el-link @click="openNews(item.url)" target="_blank">{{item.title}}</el-link>
                 </div>
               </div>
             </el-card>
@@ -62,13 +57,17 @@ export default {
   name: "Home",
   data() {
     return {
-      tableData: []
+      tableData: [],
+      tableNewData: []
     };
   },
   methods: {
     query() {
       api.get().then(res => {
         this.tableData = res;
+      });
+      api.getNew().then(res => {
+        this.tableNewData = res;
       });
     },
     openNews(url) {
