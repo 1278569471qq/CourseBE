@@ -26,6 +26,7 @@ public class WebConfig implements WebMvcConfigurer {
                 .allowedMethods("*")
                 .allowedHeaders("*")
                 .allowCredentials(true)
-                .allowedOrigins("http://www.zzxblog.top");
+                .allowedOrigins("*");
+                //allowedOrigins("http://www.zzxblog.top")
     }
 }
