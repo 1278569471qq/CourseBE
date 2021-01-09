@@ -29,12 +29,7 @@ public class ThemisInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
-        try {
-            // 展示用, 请移除本段代码
-            Thread.sleep(100);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+
 
         if (!(handler instanceof HandlerMethod)) {
             return true;

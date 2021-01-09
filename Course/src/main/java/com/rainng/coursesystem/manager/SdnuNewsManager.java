@@ -8,6 +8,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import java.io.IOException;
 import java.net.URL;
@@ -55,7 +56,13 @@ public class SdnuNewsManager extends BaseManager {
         for (SdnuNewsBO news : newsList) {
             sdnuNewsDAO.addNews(news.getTitle(), news.getDate() + "&&" + news.getUrl());
         }
+        List<SdnuNewsBO> newsLatestList = parseLatestNews(pageDoc);
+        for (SdnuNewsBO news : newsLatestList) {
+            sdnuNewsDAO.addLatestNews(news.getTitle(), news.getDate() + "&&" + news.getUrl());
+        }
     }
+
+
 
     private Document fetchPage() {
         Document doc = null;
@@ -85,6 +92,37 @@ public class SdnuNewsManager extends BaseManager {
                 }
                 newsList.add(new SdnuNewsBO(title, date, url));
             }
+        }
+        return newsList;
+    }
+
+    private List<SdnuNewsBO> parseLatestNews(Document pageDoc) {
+        Elements elements = pageDoc.body()
+                .getElementsByClass("right02box");
+        List<SdnuNewsBO> newsList = new ArrayList<>();
+        Element element = elements.get(0);
+        Elements tags = element.getElementsByTag("li");
+        for (Element li : tags) {
+            Elements span = li.getElementsByTag("span");
+            Element N = span.get(0);
+            String data  =  span.get(0).attr("class").split("N")[1];
+            Elements a = li.getElementsByTag("a");
+            String title = a.attr("title");
+            String url = BASE_URL + a.attr("href");
+            newsList.add(new SdnuNewsBO(title, data, url));
+        }
+        return newsList;
+    }
+
+    public List<SdnuNewsBO> getLatestAllNews() {
+        Map<String, String> map = sdnuNewsDAO.getLatestAllNews();
+        List<SdnuNewsBO> newsList = new ArrayList<>(map.size());
+        for (String key : map.keySet()) {
+            String value = map.get(key);
+            String[] split = value.split("&&");
+            String date = split[0];
+            String url = split[1];
+            newsList.add(new SdnuNewsBO(key, date, url));
         }
         return newsList;
     }

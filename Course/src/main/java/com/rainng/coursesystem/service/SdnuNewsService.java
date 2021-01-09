@@ -1,11 +1,17 @@
 package com.rainng.coursesystem.service;
 
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Comparator;
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
+
 import com.rainng.coursesystem.manager.SdnuNewsManager;
+import com.rainng.coursesystem.model.bo.SdnuNewsBO;
 import com.rainng.coursesystem.model.vo.response.ResultVO;
 import com.rainng.coursesystem.model.vo.response.table.SdnuNewsItemVO;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class SdnuNewsService extends BaseService {
@@ -18,6 +24,13 @@ public class SdnuNewsService extends BaseService {
     public ResultVO getAllNews() {
         List<SdnuNewsItemVO> voList = SdnuNewsItemVO.fromSdnuNewsBOList(manager.getAllNews());
         voList.sort((a, b) -> b.getDate().compareTo(a.getDate()));
+
+        return result(voList);
+    }
+
+    public ResultVO getLatestAllNews() {
+        List<SdnuNewsBO> voList = manager.getLatestAllNews();
+        voList.sort(Comparator.comparingInt(v -> Integer.parseInt(v.getDate())));
 
         return result(voList);
     }

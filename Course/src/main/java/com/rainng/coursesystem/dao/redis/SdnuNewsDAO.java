@@ -8,8 +8,8 @@ import java.util.Map;
 
 @Repository
 public class SdnuNewsDAO {
-    private static final String HASH_NAME = "rc_sdnu_news";
-
+    private static final String HASH_NAME = "news";
+    private static final String HASH_LATEST_NAME = "latest_news";
     private final RedisTemplate template;
 
     public SdnuNewsDAO(@Qualifier("redisTemplate") RedisTemplate template) {
@@ -20,6 +20,9 @@ public class SdnuNewsDAO {
         template.opsForHash().put(HASH_NAME, title, body);
     }
 
+    public void addLatestNews(String title, String body) {
+        template.opsForHash().put(HASH_LATEST_NAME, title, body);
+    }
 
     public Map<String, String> getAllNews() {
         return template.opsForHash().entries(HASH_NAME);
@@ -27,5 +30,10 @@ public class SdnuNewsDAO {
 
     public void clear() {
         template.opsForHash().getOperations().delete(HASH_NAME);
+        template.opsForHash().getOperations().delete(HASH_LATEST_NAME);
+    }
+
+    public Map<String, String> getLatestAllNews() {
+        return template.opsForHash().entries(HASH_LATEST_NAME);
     }
 }

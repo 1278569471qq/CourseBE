@@ -19,4 +19,10 @@ public class SdnuNewsController extends BaseController {
     public ResultVO get() {
         return service.getAllNews();
     }
+
+
+    @GetMapping("/new")
+    public ResultVO getLatest() {
+        return service.getLatestAllNews();
+    }
 }
