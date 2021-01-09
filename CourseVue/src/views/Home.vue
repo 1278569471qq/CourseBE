@@ -37,22 +37,15 @@
         <el-aside class="home-aside" width="35%">
           <div class="aside-container">
             <el-card :body-style="{ padding: '0px' }">
-              <img class="aside-img" src="../assets/home-aside-img.png" />
               <div style="padding: 20px">
-                <a
-                  href="http://www.sdnu.edu.cn/bwcxljsm.htm"
-                  style="text-decoration:none"
-                  target="_blank"
-                >
-                  <div class="aside-title">
-                    <b>“不忘初心、牢记使命”主题教育专题</b>
-                  </div>
-                  <div class="aside-content">
-                    开展“不忘初心、牢记使命”主题教育，是以习近平同志为核心的党中央统揽伟大斗争、伟大工程、伟大事业、伟大梦想作出的重大部署
-                    。 按照党中央决策部署和省委工作要求， 学校为第二批开展
-                    “不忘初心、牢记使命” 主题...
-                  </div>
-                </a>
+                <div>
+                  <el-link href="https://element.eleme.io" target="_blank">默认链接</el-link>
+                  <el-link type="primary">主要链接</el-link>
+                  <el-link type="success">成功链接</el-link>
+                  <el-link type="warning">警告链接</el-link>
+                  <el-link type="danger">危险链接</el-link>
+                  <el-link type="info">信息链接</el-link>
+                </div>
               </div>
             </el-card>
           </div>
