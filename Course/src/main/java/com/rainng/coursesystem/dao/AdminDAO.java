@@ -1,11 +1,13 @@
 package com.rainng.coursesystem.dao;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.rainng.coursesystem.dao.mapper.AdminMapper;
 import com.rainng.coursesystem.model.entity.AdminEntity;
-import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 @Repository
 public class AdminDAO extends BaseDAO {

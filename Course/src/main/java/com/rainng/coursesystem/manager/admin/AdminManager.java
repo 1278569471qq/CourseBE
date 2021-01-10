@@ -1,11 +1,12 @@
 package com.rainng.coursesystem.manager.admin;
 
+import java.util.List;
+
+import org.springframework.stereotype.Component;
+
 import com.rainng.coursesystem.dao.AdminDAO;
 import com.rainng.coursesystem.manager.BaseManager;
 import com.rainng.coursesystem.model.entity.AdminEntity;
-import org.springframework.stereotype.Component;
-
-import java.util.List;
 
 @Component
 public class AdminManager extends BaseManager {
@@ -33,5 +34,9 @@ public class AdminManager extends BaseManager {
 
     public List<AdminEntity> list() {
         return adminDAO.list();
+    }
+
+    public AdminEntity getByName(String username) {
+        return adminDAO.getByUsername(username);
     }
 }

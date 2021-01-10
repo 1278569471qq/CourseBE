@@ -17,7 +17,7 @@ spring:
     time-zone: Asia/Shanghai
   data:
     mongodb:
-      uri: mongodb://www.zzxblog.top:27017/rainng_course
+      uri: mongodb://www.zzxblog.top:27017/course
 
 mybatis-plus:
   mapper-locations: classpath:mapping/*.xml

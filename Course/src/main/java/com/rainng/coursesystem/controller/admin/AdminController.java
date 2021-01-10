@@ -5,6 +5,8 @@ import com.rainng.coursesystem.controller.BaseController;
 import com.rainng.coursesystem.model.entity.AdminEntity;
 import com.rainng.coursesystem.model.vo.response.ResultVO;
 import com.rainng.coursesystem.service.admin.AdminService;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 

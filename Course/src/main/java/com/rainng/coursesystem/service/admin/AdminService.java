@@ -1,12 +1,13 @@
 package com.rainng.coursesystem.service.admin;
 
+import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+
 import com.rainng.coursesystem.manager.admin.AdminManager;
 import com.rainng.coursesystem.model.entity.AdminEntity;
 import com.rainng.coursesystem.model.vo.response.ResultVO;
 import com.rainng.coursesystem.service.BaseService;
 import com.rainng.coursesystem.service.UserService;
-import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 @Service
 public class AdminService extends BaseService {
@@ -58,6 +59,10 @@ public class AdminService extends BaseService {
     public ResultVO create(AdminEntity entity) {
         if (manager.get(entity.getId()) != null) {
             return failedResult("管理员Id: " + entity.getId() + "已存在!");
+        }
+        AdminEntity user = manager.getByName(entity.getUsername());
+        if (user != null) {
+            return failedResult("管理员: " + entity.getUsername() + "已存在!");
         }
         if (!StringUtils.isEmpty(entity.getPassword())) {
             entity.setPassword(userService.computePasswordHash(entity.getPassword()));

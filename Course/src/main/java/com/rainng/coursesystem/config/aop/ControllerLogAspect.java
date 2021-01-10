@@ -51,7 +51,7 @@ public class ControllerLogAspect {
         } catch (Throwable ex) {
             log.setException(ex.getMessage());
             setResponseCode(HttpStatusCode.INTERNAL_SERVER_ERROR);
-            result = new ResultVO(ResultVO.SERVER_ERROR, "未知错误", null);
+            result = new ResultVO(ResultVO.SERVER_ERROR, "未知错误", ex.getMessage());
         }
 
         logResult(log, result, System.currentTimeMillis() - startTime);
