@@ -14,16 +14,17 @@
           <el-col :span="2">
             <el-button @click="create" icon="el-icon-plus">创建</el-button>
           </el-col>
-          <el-col :span="2">
+          <el-col :span="2" style="width: 170px;margin-top:10px">
             <el-switch
                     @change="updateAllowSelect"
                     v-model="optionForm.allowSelect"
                     active-color="#13ce66"
                     inactive-color="#ff4949"
                     inactive-text="允许学生选课">
-            </el-switch>
+            </el-switch
+                    >
           </el-col>
-         <el-col :span="2">
+         <el-col :span="2" style="width: 170px;margin-top: 10px">
             <el-switch
                     @change="updateAllowGrade"
                     v-model="optionForm.allowGrade"
@@ -33,7 +34,7 @@
 
             </el-switch>
           </el-col>
-          <el-col :offset="5" :span="3">
+          <el-col :offset="5" :span="3" style="margin:0px;margin-left: 170px">
             <el-input
               @keyup.enter.native="query"
               placeholder="课程名"
