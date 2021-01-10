@@ -2,7 +2,6 @@ package com.rainng.coursesystem.dao;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
