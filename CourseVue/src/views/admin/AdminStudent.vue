@@ -43,17 +43,7 @@
         </el-row>
       </div>
 
-      <el-row justify="center" type="flex">
-        <el-pagination
-          :current-page.sync="pageIndex"
-          :page-size="pageSize"
-          :total="pageSize * pageCount"
-          @current-change="getPage"
-          background
-          layout="prev, pager, next"
-        >
-        </el-pagination>
-      </el-row>
+
 
       <div class="table">
         <el-table :data="tableData" stripe>
@@ -83,7 +73,17 @@
           </el-table-column>
         </el-table>
       </div>
-
+      <el-row justify="center" type="flex" style="padding: 15px;">
+        <el-pagination
+            :current-page.sync="pageIndex"
+            :page-size="pageSize"
+            :total="pageSize * pageCount"
+            @current-change="getPage"
+            background
+            layout="prev, pager, next"
+        >
+        </el-pagination>
+      </el-row>
       <el-dialog :visible.sync="editing" title="编辑" width="30%">
         <el-form :model="entityForm" label-width="70px" ref="form">
           <el-form-item label="姓名">

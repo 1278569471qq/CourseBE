@@ -33,17 +33,7 @@
         </el-row>
       </div>
 
-      <el-row justify="center" type="flex">
-        <el-pagination
-          :current-page.sync="pageIndex"
-          :page-size="pageSize"
-          :total="pageSize * pageCount"
-          @current-change="getPage"
-          background
-          layout="prev, pager, next"
-        >
-        </el-pagination>
-      </el-row>
+
 
       <div class="table">
         <el-table :data="tableData" stripe>
@@ -91,6 +81,17 @@
         </span>
       </el-dialog>
     </div>
+    <el-row justify="center" type="flex" style="padding: 15px;">
+      <el-pagination
+          :current-page.sync="pageIndex"
+          :page-size="pageSize"
+          :total="pageSize * pageCount"
+          @current-change="getPage"
+          background
+          layout="prev, pager, next"
+      >
+      </el-pagination>
+    </el-row>
   </div>
 </template>
 
