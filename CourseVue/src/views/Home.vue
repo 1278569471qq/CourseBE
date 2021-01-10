@@ -34,7 +34,7 @@
             </el-table-column>
           </el-table>
         </el-aside>
-        <el-aside class="home-aside" width="35%">
+<!--        <el-aside class="home-aside" width="35%">
           <div class="aside-container">
             <el-card :body-style="{ padding: '0px' }">
               <div style="padding: 20px">
@@ -44,7 +44,26 @@
               </div>
             </el-card>
           </div>
-        </el-aside>
+        </el-aside>-->
+<!--        <el-tabs v-model="activeName" type="card" @tab-click="handleClick">
+          <el-tab-pane name="first" label="最新消息">
+            <el-card :body-style="{ padding: '0px'  }">
+              <div style="padding: 20px;">
+                <div v-for = "item in tableNewData" :key="item">
+                  <el-link @click="openNews(item.url)" target="_blank">{{item.title}}</el-link>
+                </div>
+              </div>
+            </el-card>
+          </el-tab-pane>
+        </el-tabs>-->
+        <el-card class="box-card">
+          <div slot="header" class="clearfix">
+            <span>最新消息</span>
+          </div>
+          <div v-for ="item in tableNewData" :key="item" class="text item">
+            <el-link @click="openNews(item.url)" target="_blank">{{item.title}}</el-link>
+          </div>
+        </el-card>
       </el-container>
     </div>
   </div>
@@ -52,13 +71,13 @@
 
 <script>
 import * as api from "../api/news";
-
 export default {
   name: "Home",
   data() {
     return {
       tableData: [],
-      tableNewData: []
+      tableNewData: [],
+      activeName: 'first'
     };
   },
   methods: {
@@ -72,6 +91,9 @@ export default {
     },
     openNews(url) {
       window.open(url, "_blank");
+    },
+    handleClick(tab, event) {
+      console.log(tab, event);
     }
   },
   created() {
@@ -126,4 +148,26 @@ export default {
   font-size: 12px;
   color: #999;
 }
+.text {
+  font-size: 14px;
+}
+
+.item {
+  margin-bottom: 18px;
+}
+
+.clearfix:before,
+.clearfix:after {
+  display: table;
+  content: "";
+}
+.clearfix:after {
+  clear: both
+}
+
+.box-card {
+  width: 480px;
+  height: 570px;
+}
+
 </style>
