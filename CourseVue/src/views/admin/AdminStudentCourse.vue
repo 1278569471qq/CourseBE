@@ -22,6 +22,8 @@
                     inactive-color="#ff4949"
                     inactive-text="允许学生选课">
             </el-switch>
+          </el-col>
+         <el-col :span="2">
             <el-switch
                     @change="updateAllowGrade"
                     v-model="optionForm.allowGrade"
@@ -31,7 +33,7 @@
 
             </el-switch>
           </el-col>
-          <el-col :offset="8" :span="3">
+          <el-col :offset="5" :span="3">
             <el-input
               @keyup.enter.native="query"
               placeholder="课程名"
