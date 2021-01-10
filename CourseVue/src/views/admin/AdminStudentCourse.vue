@@ -15,16 +15,21 @@
             <el-button @click="create" icon="el-icon-plus">创建</el-button>
           </el-col>
           <el-col :span="2">
-            <el-checkbox
-              @change="updateAllowSelect"
-              v-model="optionForm.allowSelect"
-              >允许学生选课
-            </el-checkbox>
-            <el-checkbox
-              @change="updateAllowGrade"
-              v-model="optionForm.allowGrade"
-              >允许教师打分
-            </el-checkbox>
+            <el-switch
+                    @change="updateAllowSelect"
+                    v-model="optionForm.allowSelect"
+                    active-color="#13ce66"
+                    inactive-color="#ff4949"
+                    inactive-text="允许学生选课">
+            </el-switch>
+            <el-switch
+                    @change="updateAllowGrade"
+                    v-model="optionForm.allowGrade"
+                    active-color="#13ce66"
+                    inactive-color="#ff4949"
+                    inactive-text="允许教师打分">
+
+            </el-switch>
           </el-col>
           <el-col :offset="8" :span="3">
             <el-input
