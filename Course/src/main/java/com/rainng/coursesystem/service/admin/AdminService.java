@@ -6,6 +6,7 @@ import com.rainng.coursesystem.model.vo.response.ResultVO;
 import com.rainng.coursesystem.service.BaseService;
 import com.rainng.coursesystem.service.UserService;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 @Service
 public class AdminService extends BaseService {
@@ -58,7 +59,9 @@ public class AdminService extends BaseService {
         if (manager.get(entity.getId()) != null) {
             return failedResult("管理员Id: " + entity.getId() + "已存在!");
         }
-
+        if (!StringUtils.isEmpty(entity.getPassword())) {
+            entity.setPassword(userService.computePasswordHash(entity.getPassword()));
+        }
         manager.create(entity);
         return result("添加成功");
     }
