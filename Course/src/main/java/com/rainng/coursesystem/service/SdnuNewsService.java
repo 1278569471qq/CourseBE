@@ -1,12 +1,9 @@
 package com.rainng.coursesystem.service;
 
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 
 import com.rainng.coursesystem.manager.SdnuNewsManager;
 import com.rainng.coursesystem.model.bo.SdnuNewsBO;
