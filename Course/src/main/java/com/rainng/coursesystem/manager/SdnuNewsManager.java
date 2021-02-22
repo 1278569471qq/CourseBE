@@ -1,23 +1,20 @@
 package com.rainng.coursesystem.manager;
 
-import com.rainng.coursesystem.dao.redis.SdnuNewsDAO;
-import com.rainng.coursesystem.model.bo.SdnuNewsBO;
+import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import com.rainng.coursesystem.dao.redis.SdnuNewsDAO;
+import com.rainng.coursesystem.model.bo.SdnuNewsBO;
 
 @Component
 public class SdnuNewsManager extends BaseManager {
