@@ -34,7 +34,8 @@ public class CourseSelectManager extends BaseManager {
     public List<StudentCourseSelectItemBO> getPage(Integer index, Integer studentId, String courseName, String teacherName) {
         Integer departmentId = studentDAO.getDepartmentIdById(studentId);
         Integer grade = studentDAO.getGradeById(studentId);
-        return courseDAO.getStudentCanSelectPage(index, departmentId, studentId, grade, courseName, teacherName);
+        List<StudentCourseSelectItemBO> studentCanSelectPage = courseDAO.getStudentCanSelectPage(index, studentId, departmentId, grade, courseName, teacherName);
+        return studentCanSelectPage;
     }
 
     public CourseEntity getCourseById(Integer courseId) {
