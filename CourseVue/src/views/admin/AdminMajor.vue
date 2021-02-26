@@ -36,8 +36,6 @@
         </el-row>
       </div>
 
-
-
       <div class="table">
         <el-table :data="tableData" stripe>
           <el-table-column label="专业Id" prop="id" />
@@ -60,12 +58,12 @@
       </div>
       <el-row justify="center" type="flex" style="padding: 15px;">
         <el-pagination
-            :current-page.sync="pageIndex"
-            :page-size="pageSize"
-            :total="pageSize * pageCount"
-            @current-change="getPage"
-            background
-            layout="prev, pager, next"
+          :current-page.sync="pageIndex"
+          :page-size="pageSize"
+          :total="pageSize * pageCount"
+          @current-change="getPage"
+          background
+          layout="prev, pager, next"
         >
         </el-pagination>
       </el-row>

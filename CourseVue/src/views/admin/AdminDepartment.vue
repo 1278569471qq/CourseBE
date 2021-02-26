@@ -10,16 +10,18 @@
 
     <div class="container">
       <div class="query-form">
-        <el-row :gutter="20">
+        <el-row :gutter="20" class="demo-autocomplete">
           <el-col :span="2">
             <el-button @click="create" icon="el-icon-plus">创建</el-button>
           </el-col>
           <el-col :offset="13" :span="6">
-            <el-input
+            <el-autocomplete
+              class="inline-input"
               @keyup.enter.native="query"
               placeholder="系名"
               v-model="queryForm.name"
-            />
+              :fetch-suggestions="querySearch"
+            ></el-autocomplete>
           </el-col>
           <el-col :span="3">
             <el-button @click="query" icon="el-icon-search" type="primary"
@@ -28,8 +30,6 @@
           </el-col>
         </el-row>
       </div>
-
-
 
       <div class="table">
         <el-table :data="tableData" stripe>
@@ -54,12 +54,12 @@
       </div>
       <el-row justify="center" type="flex" style="padding: 15px;">
         <el-pagination
-            :current-page.sync="pageIndex"
-            :page-size="pageSize"
-            :total="pageSize * pageCount"
-            @current-change="getPage"
-            background
-            layout="prev, pager, next"
+          :current-page.sync="pageIndex"
+          :page-size="pageSize"
+          :total="pageSize * pageCount"
+          @current-change="getPage"
+          background
+          layout="prev, pager, next"
         >
         </el-pagination>
       </el-row>
@@ -80,11 +80,11 @@
 
 <script>
 import * as api from "../../api/admin/department";
-
 export default {
   name: "AdminDepartment",
   data() {
     return {
+      restaurants: [],
       queryForm: {
         name: ""
       },
@@ -97,6 +97,19 @@ export default {
     };
   },
   methods: {
+    querySearch(queryString, cb) {
+      const restaurants = this.restaurants;
+      const results = queryString
+        ? restaurants.filter(this.createFilter1(queryString))
+        : restaurants;
+      // 调用 callback 返回建议列表的数据
+      cb(results);
+    },
+    createFilter1(queryString) {
+      return restaurants => {
+        return (restaurants.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
+      };
+    },
     query() {
       api.getPageCount(this.queryForm.name).then(res => {
         this.pageCount = res;
@@ -146,7 +159,10 @@ export default {
     }
   },
   created() {
-    this.query();
+    (this.restaurants = [
+      { value: "三全鲜食（北新泾店）"}
+    ]),
+      this.query();
   }
 };
 </script>

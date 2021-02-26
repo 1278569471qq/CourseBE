@@ -34,7 +34,7 @@
             </el-table-column>
           </el-table>
         </el-aside>
-<!--        <el-aside class="home-aside" width="35%">
+        <!--        <el-aside class="home-aside" width="35%">
           <div class="aside-container">
             <el-card :body-style="{ padding: '0px' }">
               <div style="padding: 20px">
@@ -45,7 +45,7 @@
             </el-card>
           </div>
         </el-aside>-->
-<!--        <el-tabs v-model="activeName" type="card" @tab-click="handleClick">
+        <!--        <el-tabs v-model="activeName" type="card" @tab-click="handleClick">
           <el-tab-pane name="first" label="最新消息">
             <el-card :body-style="{ padding: '0px'  }">
               <div style="padding: 20px;">
@@ -162,12 +162,11 @@ export default {
   content: "";
 }
 .clearfix:after {
-  clear: both
+  clear: both;
 }
 
 .box-card {
   width: 480px;
   height: 570px;
 }
-
 </style>
