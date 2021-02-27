@@ -67,4 +67,8 @@ public class MajorManager extends BaseManager {
 
         return voList;
     }
+
+    public List<MajorEntity> getAll() {
+        return majorDAO.listName();
+    }
 }

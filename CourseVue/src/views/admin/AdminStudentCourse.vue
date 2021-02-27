@@ -35,24 +35,30 @@
             </el-switch>
           </el-col>
           <el-col :offset="5" :span="3" style="margin:0px;margin-left: 170px">
-            <el-input
+            <el-autocomplete
               @keyup.enter.native="query"
               placeholder="课程名"
               v-model="queryForm.name"
+              :fetch-suggestions="querySearchCour"
+              :trigger-on-focus="false"
             />
           </el-col>
           <el-col :span="3">
-            <el-input
+            <el-autocomplete
               @keyup.enter.native="query"
               placeholder="专业名"
               v-model="queryForm.majorName"
+              :fetch-suggestions="querySearchMaj"
+              :trigger-on-focus="false"
             />
           </el-col>
           <el-col :span="3">
-            <el-input
+            <el-autocomplete
               @keyup.enter.native="query"
               placeholder="班级名"
               v-model="queryForm.className"
+              :fetch-suggestions="querySearchCla"
+              :trigger-on-focus="false"
             />
           </el-col>
           <el-col :span="3">
@@ -152,6 +158,7 @@ import * as api from "../../api/admin/studentCourse";
 import * as CourseApi from "../../api/admin/course";
 import * as StudentApi from "../../api/admin/student";
 import * as OptionApi from "../../api/option";
+import * as adminApi from "../../api/admin/admin";
 
 export default {
   name: "AdminStudentCourse",
@@ -173,10 +180,53 @@ export default {
       pageIndex: 1,
       editing: false,
       courses: [],
-      students: []
+      students: [],
+      claDepartments: [],
+      majDepartments: [],
+      courseDepartments: []
     };
   },
   methods: {
+    querySearchMaj(queryString, cb) {
+      const majDepartments = this.majDepartments;
+      const results = queryString
+              ? majDepartments.filter(this.createFilter1(queryString))
+              : majDepartments;
+      // 调用 callback 返回建议列表的数据
+      cb(results);
+    },
+    querySearchCour(queryString, cb) {
+      const courseDepartments = this.courseDepartments;
+      const results = queryString
+              ? courseDepartments.filter(this.createFilter1(queryString))
+              : courseDepartments;
+      // 调用 callback 返回建议列表的数据
+      cb(results);
+    },
+    querySearchCla(queryString, cb) {
+      const claDepartments = this.claDepartments;
+      const results = queryString
+              ? claDepartments.filter(this.createFilter1(queryString))
+              : claDepartments;
+      // 调用 callback 返回建议列表的数据
+      cb(results);
+    },
+    createFilter1(queryString) {
+      return restaurants => {
+        return (restaurants.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
+      };
+    },
+    getLikeData() {
+      adminApi.getLikeData(1).then(res => {
+        this.majDepartments = res;
+      });
+      adminApi.getLikeData(3).then(res => {
+        this.claDepartments = res;
+      });
+      adminApi.getLikeData(6).then(res => {
+        this.courseDepartments = res;
+      });
+    },
     query() {
       api
         .getPageCount(
@@ -268,6 +318,7 @@ export default {
     this.query();
     this.getCoursesAndStudents();
     this.getSelectAndGradeStatus();
+    this.getLikeData();
   }
 };
 </script>

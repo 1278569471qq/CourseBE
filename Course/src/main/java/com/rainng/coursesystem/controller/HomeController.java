@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class HomeController extends BaseController {
     @RequestMapping("/")
     public String hello() {
-        return "Hello Rainng Course Management System";
+        return "Hello Course Management System";
     }
 
     @RequestMapping("/test")

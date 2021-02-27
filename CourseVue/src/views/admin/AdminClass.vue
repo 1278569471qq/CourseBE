@@ -15,24 +15,30 @@
             <el-button @click="create" icon="el-icon-plus">创建</el-button>
           </el-col>
           <el-col :offset="10" :span="3">
-            <el-input
+            <el-autocomplete
               @keyup.enter.native="query"
               placeholder="班级名"
               v-model="queryForm.name"
+              :fetch-suggestions="querySearchClass"
+              :trigger-on-focus="false"
             />
           </el-col>
           <el-col :span="3">
-            <el-input
+            <el-autocomplete
               @keyup.enter.native="query"
               placeholder="系名"
               v-model="queryForm.departmentName"
+              :fetch-suggestions="querySearchDep"
+              :trigger-on-focus="false"
             />
           </el-col>
           <el-col :span="3">
-            <el-input
+            <el-autocomplete
               @keyup.enter.native="query"
               placeholder="专业名"
               v-model="queryForm.majorName"
+              :fetch-suggestions="querySearchMajor"
+              :trigger-on-focus="false"
             />
           </el-col>
           <el-col :span="3">
@@ -107,6 +113,7 @@
 <script>
 import * as api from "../../api/admin/class";
 import * as majorApi from "../../api/admin/major";
+import * as adminApi from "../../api/admin/admin";
 
 export default {
   name: "AdminClass",
@@ -123,10 +130,53 @@ export default {
       pageCount: 1,
       pageIndex: 1,
       editing: false,
-      majors: []
+      majors: [],
+      majorDepartments: [],
+      depDepartments: [],
+      claDepartments: []
     };
   },
   methods: {
+    querySearchMajor(queryString, cb) {
+      const majorDepartments = this.majorDepartments;
+      const results = queryString
+              ? majorDepartments.filter(this.createFilter1(queryString))
+              : majorDepartments;
+      // 调用 callback 返回建议列表的数据
+      cb(results);
+    },
+    querySearchClass(queryString, cb) {
+      const claDepartments = this.claDepartments;
+      const results = queryString
+              ? claDepartments.filter(this.createFilter1(queryString))
+              : claDepartments;
+      // 调用 callback 返回建议列表的数据
+      cb(results);
+    },
+    querySearchDep(queryString, cb) {
+      const depDepartments = this.depDepartments;
+      const results = queryString
+              ? depDepartments.filter(this.createFilter1(queryString))
+              : depDepartments;
+      // 调用 callback 返回建议列表的数据
+      cb(results);
+    },
+    createFilter1(queryString) {
+      return restaurants => {
+        return (restaurants.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
+      };
+    },
+    getLikeData() {
+      adminApi.getLikeData(2).then(res => {
+        this.depDepartments = res;
+      });
+      adminApi.getLikeData(1).then(res => {
+        this.majorDepartments = res;
+      });
+      adminApi.getLikeData(3).then(res => {
+        this.claDepartments = res;
+      });
+    },
     query() {
       api
         .getPageCount(
@@ -198,6 +248,7 @@ export default {
   created() {
     this.query();
     this.getMajors();
+    this.getLikeData();
   }
 };
 </script>

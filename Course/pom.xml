@@ -11,7 +11,7 @@
     <groupId>com.rainng</groupId>
     <artifactId>course-system</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>Rainng Course System</name>
+    <name>Course System</name>
     <description>course management system</description>
 
     <properties>
@@ -69,6 +69,10 @@
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
             <version>3.3.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
         </dependency>
     </dependencies>
 

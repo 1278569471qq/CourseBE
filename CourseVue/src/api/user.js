@@ -10,3 +10,4 @@ export const login = (username, password, userType) =>
 export const getLoginStatus = () => pureGet("/user/login/status");
 
 export const logout = () => pureGet("/user/logout");
+

@@ -15,17 +15,21 @@
             <el-button @click="create" icon="el-icon-plus">创建</el-button>
           </el-col>
           <el-col :offset="13" :span="3">
-            <el-input
+            <el-autocomplete
               @keyup.enter.native="query"
               placeholder="教师"
               v-model="queryForm.name"
+              :fetch-suggestions="querySearchTeacher"
+              :trigger-on-focus="false"
             />
           </el-col>
           <el-col :span="3">
-            <el-input
+            <el-autocomplete
               @keyup.enter.native="query"
               placeholder="系名"
               v-model="queryForm.departmentName"
+              :fetch-suggestions="querySearchDep"
+              :trigger-on-focus="false"
             />
           </el-col>
           <el-col :span="3">
@@ -102,6 +106,7 @@
 <script>
 import * as api from "../../api/admin/teacher";
 import * as departmentApi from "../../api/admin/department";
+import * as adminApi from "../../api/admin/admin";
 
 export default {
   name: "AdminTeacher",
@@ -117,10 +122,41 @@ export default {
       pageCount: 1,
       pageIndex: 1,
       editing: false,
-      departments: []
+      departments: [],
+      teaDepartments: [],
+      depDepartments: []
     };
   },
   methods: {
+    querySearchDep(queryString, cb) {
+      const depDepartments = this.depDepartments;
+      const results = queryString
+              ? depDepartments.filter(this.createFilter1(queryString))
+              : depDepartments;
+      // 调用 callback 返回建议列表的数据
+      cb(results);
+    },
+    querySearchTeacher(queryString, cb) {
+      const teaDepartments = this.teaDepartments;
+      const results = queryString
+              ? teaDepartments.filter(this.createFilter1(queryString))
+              : teaDepartments;
+      // 调用 callback 返回建议列表的数据
+      cb(results);
+    },
+    createFilter1(queryString) {
+      return restaurants => {
+        return (restaurants.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
+      };
+    },
+    getLikeData() {
+      adminApi.getLikeData(2).then(res => {
+        this.depDepartments = res;
+      });
+      adminApi.getLikeData(5).then(res => {
+        this.teaDepartments = res;
+      });
+    },
     query() {
       api
         .getPageCount(this.queryForm.departmentName, this.queryForm.name)
@@ -184,6 +220,7 @@ export default {
   created() {
     this.query();
     this.getDepartments();
+    this.getLikeData();
   }
 };
 </script>

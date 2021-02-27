@@ -1,7 +1,7 @@
 import Config from "./config";
 import axios from "axios";
 import ElementUI from "element-ui";
-
+axios.defaults.withCredentials=true;
 export const vueInstance = {
   instance: null,
   store: null

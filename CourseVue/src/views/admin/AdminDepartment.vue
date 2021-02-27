@@ -14,13 +14,14 @@
           <el-col :span="2">
             <el-button @click="create" icon="el-icon-plus">创建</el-button>
           </el-col>
-          <el-col :offset="13" :span="6">
+          <el-col :offset="14" :span="3">
             <el-autocomplete
               class="inline-input"
               @keyup.enter.native="query"
               placeholder="系名"
               v-model="queryForm.name"
               :fetch-suggestions="querySearch"
+              :trigger-on-focus="false"
             ></el-autocomplete>
           </el-col>
           <el-col :span="3">
@@ -80,6 +81,7 @@
 
 <script>
 import * as api from "../../api/admin/department";
+import * as adminApi from "../../api/admin/admin";
 export default {
   name: "AdminDepartment",
   data() {
@@ -109,6 +111,11 @@ export default {
       return restaurants => {
         return (restaurants.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
       };
+    },
+    getLikeData() {
+      adminApi.getLikeData(2).then(res => {
+        this.restaurants = res;
+      });
     },
     query() {
       api.getPageCount(this.queryForm.name).then(res => {
@@ -159,9 +166,7 @@ export default {
     }
   },
   created() {
-    (this.restaurants = [
-      { value: "三全鲜食（北新泾店）"}
-    ]),
+      this.getLikeData();
       this.query();
   }
 };

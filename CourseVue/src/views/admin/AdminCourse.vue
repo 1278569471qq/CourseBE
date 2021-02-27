@@ -15,24 +15,30 @@
             <el-button @click="create" icon="el-icon-plus">创建</el-button>
           </el-col>
           <el-col :offset="10" :span="3">
-            <el-input
+            <el-autocomplete
               @keyup.enter.native="query"
               placeholder="课程名"
               v-model="queryForm.name"
+              :fetch-suggestions="querySearchCour"
+              :trigger-on-focus="false"
             />
           </el-col>
           <el-col :span="3">
-            <el-input
+            <el-autocomplete
               @keyup.enter.native="query"
               placeholder="教师名"
               v-model="queryForm.teacherName"
+              :fetch-suggestions="querySearchTeacher"
+              :trigger-on-focus="false"
             />
           </el-col>
           <el-col :span="3">
-            <el-input
+            <el-autocomplete
               @keyup.enter.native="query"
               placeholder="系名"
               v-model="queryForm.departmentName"
+              :fetch-suggestions="querySearchDep"
+              :trigger-on-focus="false"
             />
           </el-col>
           <el-col :span="3">
@@ -160,6 +166,7 @@
 <script>
 import * as api from "../../api/admin/course";
 import * as teacherApi from "../../api/admin/teacher";
+import * as adminApi from "../../api/admin/admin";
 
 export default {
   name: "AdminCourse",
@@ -180,6 +187,9 @@ export default {
       courseDay: "",
       courseTime: "",
       courseLength: 0,
+      teaDepartments: [],
+      depDepartments: [],
+      courseDepartments: [],
       days: [
         "星期一",
         "星期二",
@@ -203,6 +213,46 @@ export default {
     };
   },
   methods: {
+    querySearchDep(queryString, cb) {
+      const depDepartments = this.depDepartments;
+      const results = queryString
+              ? depDepartments.filter(this.createFilter1(queryString))
+              : depDepartments;
+      // 调用 callback 返回建议列表的数据
+      cb(results);
+    },
+    querySearchTeacher(queryString, cb) {
+      const teaDepartments = this.teaDepartments;
+      const results = queryString
+              ? teaDepartments.filter(this.createFilter1(queryString))
+              : teaDepartments;
+      // 调用 callback 返回建议列表的数据
+      cb(results);
+    },
+    querySearchCour(queryString, cb) {
+      const courseDepartments = this.courseDepartments;
+      const results = queryString
+              ? courseDepartments.filter(this.createFilter1(queryString))
+              : courseDepartments;
+      // 调用 callback 返回建议列表的数据
+      cb(results);
+    },
+    createFilter1(queryString) {
+      return restaurants => {
+        return (restaurants.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
+      };
+    },
+    getLikeData() {
+      adminApi.getLikeData(2).then(res => {
+        this.depDepartments = res;
+      });
+      adminApi.getLikeData(5).then(res => {
+        this.teaDepartments = res;
+      });
+      adminApi.getLikeData(6).then(res => {
+        this.courseDepartments = res;
+      });
+    },
     query() {
       api
         .getPageCount(
@@ -291,6 +341,7 @@ export default {
   created() {
     this.query();
     this.getTeachers();
+    this.getLikeData();
   }
 };
 </script>

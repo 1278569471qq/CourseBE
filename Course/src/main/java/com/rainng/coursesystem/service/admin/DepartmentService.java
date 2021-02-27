@@ -1,5 +1,7 @@
 package com.rainng.coursesystem.service.admin;
 
+import java.util.List;
+
 import com.rainng.coursesystem.manager.admin.DepartmentManager;
 import com.rainng.coursesystem.model.entity.DepartmentEntity;
 import com.rainng.coursesystem.model.vo.response.ResultVO;
