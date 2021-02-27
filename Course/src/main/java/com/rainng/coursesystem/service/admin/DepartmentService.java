@@ -1,12 +1,11 @@
 package com.rainng.coursesystem.service.admin;
 
-import java.util.List;
+import org.springframework.stereotype.Service;
 
 import com.rainng.coursesystem.manager.admin.DepartmentManager;
 import com.rainng.coursesystem.model.entity.DepartmentEntity;
 import com.rainng.coursesystem.model.vo.response.ResultVO;
 import com.rainng.coursesystem.service.BaseService;
-import org.springframework.stereotype.Service;
 
 @Service
 public class DepartmentService extends BaseService {
