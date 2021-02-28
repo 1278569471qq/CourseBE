@@ -131,23 +131,24 @@ export default {
     querySearchDep(queryString, cb) {
       const depDepartments = this.depDepartments;
       const results = queryString
-              ? depDepartments.filter(this.createFilter1(queryString))
+              ? depDepartments.filter(this.createFilterPinyin(queryString))
               : depDepartments;
       // 调用 callback 返回建议列表的数据
       cb(results);
     },
+    createFilterPinyin(queryString) {
+      return restaurants => {
+        return (restaurants.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0) ||
+                (restaurants.pinyin.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
+      };
+    },
     querySearchTeacher(queryString, cb) {
       const teaDepartments = this.teaDepartments;
       const results = queryString
-              ? teaDepartments.filter(this.createFilter1(queryString))
+              ? teaDepartments.filter(this.createFilterPinyin(queryString))
               : teaDepartments;
       // 调用 callback 返回建议列表的数据
       cb(results);
-    },
-    createFilter1(queryString) {
-      return restaurants => {
-        return (restaurants.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
-      };
     },
     getLikeData() {
       adminApi.getLikeData(2).then(res => {

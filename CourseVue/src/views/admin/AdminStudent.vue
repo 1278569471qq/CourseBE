@@ -167,7 +167,7 @@ export default {
     querySearchMajor(queryString, cb) {
       const majorDepartments = this.majorDepartments;
       const results = queryString
-              ? majorDepartments.filter(this.createFilter1(queryString))
+              ? majorDepartments.filter(this.createFilterPinyin(queryString))
               : majorDepartments;
       // 调用 callback 返回建议列表的数据
       cb(results);
@@ -175,7 +175,7 @@ export default {
     querySearchClass(queryString, cb) {
       const claDepartments = this.claDepartments;
       const results = queryString
-              ? claDepartments.filter(this.createFilter1(queryString))
+              ? claDepartments.filter(this.createFilterPinyin(queryString))
               : claDepartments;
       // 调用 callback 返回建议列表的数据
       cb(results);
@@ -183,14 +183,15 @@ export default {
     querySearchStu(queryString, cb) {
       const stuDepartments = this.stuDepartments;
       const results = queryString
-              ? stuDepartments.filter(this.createFilter1(queryString))
+              ? stuDepartments.filter(this.createFilterPinyin(queryString))
               : stuDepartments;
       // 调用 callback 返回建议列表的数据
       cb(results);
     },
-    createFilter1(queryString) {
+    createFilterPinyin(queryString) {
       return restaurants => {
-        return (restaurants.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
+        return (restaurants.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0) ||
+                (restaurants.pinyin.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
       };
     },
     getLikeData() {

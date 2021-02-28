@@ -102,14 +102,15 @@ export default {
     querySearch(queryString, cb) {
       const restaurants = this.restaurants;
       const results = queryString
-        ? restaurants.filter(this.createFilter1(queryString))
+        ? restaurants.filter(this.createFilterPinyin(queryString))
         : restaurants;
       // 调用 callback 返回建议列表的数据
       cb(results);
     },
-    createFilter1(queryString) {
+    createFilterPinyin(queryString) {
       return restaurants => {
-        return (restaurants.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
+        return (restaurants.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0) ||
+                (restaurants.pinyin.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
       };
     },
     getLikeData() {
