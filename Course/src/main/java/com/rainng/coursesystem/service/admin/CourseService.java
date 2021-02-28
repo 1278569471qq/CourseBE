@@ -3,15 +3,18 @@ package com.rainng.coursesystem.service.admin;
 import com.rainng.coursesystem.manager.admin.CourseManager;
 import com.rainng.coursesystem.model.bo.CourseItemBO;
 import com.rainng.coursesystem.model.entity.CourseEntity;
+import com.rainng.coursesystem.model.vo.response.IdNameVO;
 import com.rainng.coursesystem.model.vo.response.ResultVO;
 import com.rainng.coursesystem.model.vo.response.table.CourseItemVO;
 import com.rainng.coursesystem.service.BaseService;
 import com.rainng.coursesystem.util.LessonTimeConverter;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CourseService extends BaseService {
@@ -84,7 +87,9 @@ public class CourseService extends BaseService {
         if (manager.getTeacherById(entity.getTeacherId()) == null) {
             return failedResult("授课教师Id: " + entity.getTeacherId() + "不存在!");
         }
-
+        if (repeat(manager.listName(), entity.getName())) {
+            return failedResult("授课教师Name: " + entity.getName() + "已存在!");
+        }
         manager.create(entity);
         return result("添加成功");
     }

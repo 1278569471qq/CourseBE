@@ -1,10 +1,14 @@
 package com.rainng.coursesystem.controller;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,7 +24,11 @@ import com.rainng.coursesystem.model.entity.DepartmentEntity;
 import com.rainng.coursesystem.model.entity.MajorEntity;
 import com.rainng.coursesystem.model.entity.StudentEntity;
 import com.rainng.coursesystem.model.entity.TeacherEntity;
+import com.rainng.coursesystem.model.vo.request.LikeDataVo;
 import com.rainng.coursesystem.model.vo.response.ResultVO;
+import com.rainng.coursesystem.util.PinYinUtils;
+
+import net.sourceforge.pinyin4j.PinyinHelper;
 
 /**
  * @author zhangzhenxin <zhangzhenxin@kuaishou.com>
@@ -56,39 +64,52 @@ public class LikeDataController  extends BaseController{
             case 1 :{
                 List<MajorEntity> majorEntities = majorDAO.listName();
                 return result(majorEntities.stream()
-                        .map(entity -> Collections.emptyMap().put("value", entity.getName())).collect(Collectors.toSet()));
+                        .map(entity -> Maps(entity.getName()))
+                                .collect(Collectors.toSet()));
             }
             case 2 : {
                 List<DepartmentEntity> departmentEntities = departmentDAO.listName();
                 return result(departmentEntities.stream()
                         .map(entity ->
-                                Collections.emptyMap().put("value", entity.getName())).collect(Collectors.toSet()));
+                                Maps(entity.getName()))
+                        .collect(Collectors.toSet()));
             }
             case 3 : {
                 List<ClassEntity> classEntities = classDAO.listName();
                 return result(classEntities.stream()
                         .map(entity ->
-                                Collections.emptyMap().put("value", entity.getName())).collect(Collectors.toSet()));
+                                Maps(entity.getName()))
+                        .collect(Collectors.toSet()));
             }
             case 4 : {
                 List<StudentEntity> studentEntities = studentDAO.listName();
                 return result(studentEntities.stream()
                         .map(entity ->
-                                Collections.emptyMap().put("value", entity.getName())).collect(Collectors.toSet()));
+                                Maps(entity.getName()))
+                        .collect(Collectors.toSet()));
             }
             case 5 : {
                 List<TeacherEntity> teacherEntities = teacherDAO.listName();
                 return result(teacherEntities.stream()
                         .map(entity ->
-                                Collections.emptyMap().put("value", entity.getName())).collect(Collectors.toSet()));
+                                Maps(entity.getName()))
+                        .collect(Collectors.toSet()));
             }
             case 6 : {
                 List<CourseEntity> courseEntities = courseDAO.listName();
                 return result(courseEntities.stream()
                         .map(entity ->
-                                Collections.emptyMap().put("value", entity.getName())).collect(Collectors.toSet()));
+                                Maps(entity.getName()))
+                        .collect(Collectors.toSet()));
             }
         }
         return  failedResult("false");
+    }
+
+    public Map<Object, Object> Maps(String value) {
+        Map<Object, Object> map = new HashMap<>();
+        map.put("value", value);
+        map.put("pinyin", PinYinUtils.getPinyinToLowerCase(value));
+        return map;
     }
 }

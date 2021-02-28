@@ -62,7 +62,9 @@ public class ClassService extends BaseService {
         if (manager.getMajorById(entity.getMajorId()) == null) {
             return failedResult("所属专业Id: " + entity.getMajorId() + "不存在!");
         }
-
+        if (repeat(manager.listName(), entity.getName())) {
+            return failedResult("name: " + entity.getName() + "已存在!");
+        }
         manager.create(entity);
         return result("添加成功");
     }

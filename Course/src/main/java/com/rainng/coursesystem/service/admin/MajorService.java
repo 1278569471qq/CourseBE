@@ -1,10 +1,15 @@
 package com.rainng.coursesystem.service.admin;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import com.rainng.coursesystem.manager.admin.MajorManager;
 import com.rainng.coursesystem.model.entity.MajorEntity;
+import com.rainng.coursesystem.model.vo.response.IdNameVO;
 import com.rainng.coursesystem.model.vo.response.ResultVO;
 import com.rainng.coursesystem.service.BaseService;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 @Service
 public class MajorService extends BaseService {
@@ -62,7 +67,9 @@ public class MajorService extends BaseService {
         if (manager.getDepartmentById(entity.getDepartmentId()) == null) {
             return failedResult("所属系Id: " + entity.getDepartmentId() + "不存在!");
         }
-
+        if (repeat(manager.listName(), entity.getName())) {
+            return failedResult("name: " + entity.getName() + "已存在!");
+        }
         manager.create(entity);
         return result("添加成功");
     }

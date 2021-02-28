@@ -9,9 +9,11 @@ import com.rainng.coursesystem.model.entity.CourseEntity;
 import com.rainng.coursesystem.model.entity.TeacherEntity;
 import com.rainng.coursesystem.model.vo.response.IdNameVO;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class CourseManager extends BaseManager {

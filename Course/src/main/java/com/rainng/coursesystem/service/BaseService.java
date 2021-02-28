@@ -1,11 +1,18 @@
 package com.rainng.coursesystem.service;
 
-import com.rainng.coursesystem.manager.LoginStatusManager;
-import com.rainng.coursesystem.model.bo.LoginStatusBO;
-import com.rainng.coursesystem.model.vo.response.ResultVO;
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.CollectionUtils;
+
+import com.rainng.coursesystem.manager.LoginStatusManager;
+import com.rainng.coursesystem.model.bo.LoginStatusBO;
+import com.rainng.coursesystem.model.entity.CourseEntity;
+import com.rainng.coursesystem.model.vo.response.IdNameVO;
+import com.rainng.coursesystem.model.vo.response.ResultVO;
 
 public class BaseService {
     @Autowired
@@ -35,5 +42,16 @@ public class BaseService {
 
     protected ResultVO failedResult(String message, Object data) {
         return new ResultVO(ResultVO.FAIL, message, data);
+    }
+
+    protected  boolean repeat(List<IdNameVO> idNameVOS,
+                              String name) {
+        List<IdNameVO> collect =
+                idNameVOS.stream().filter(vo -> vo.getName()
+                        .equals(name)).collect(Collectors.toList());
+        if (!CollectionUtils.isEmpty(collect)) {
+            return true;
+        }
+        return false;
     }
 }

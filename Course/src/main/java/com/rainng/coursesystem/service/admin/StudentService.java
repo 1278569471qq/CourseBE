@@ -74,7 +74,9 @@ public class StudentService extends BaseService {
         if (manager.getClassById(entity.getClassId()) == null) {
             return failedResult("所属班级Id: " + entity.getClassId() + "不存在!");
         }
-
+        if (repeat(manager.listName(), entity.getName())) {
+            return failedResult("name: " + entity.getName() + "已存在!");
+        }
         manager.create(entity);
         return result("添加成功");
     }

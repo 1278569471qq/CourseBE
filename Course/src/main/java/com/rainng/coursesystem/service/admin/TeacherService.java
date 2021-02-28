@@ -74,7 +74,9 @@ public class TeacherService extends BaseService {
         if (manager.getDepartmentById(entity.getDepartmentId()) == null) {
             return failedResult("所属系Id: " + entity.getDepartmentId() + "不存在!");
         }
-
+        if (repeat(manager.listName(), entity.getName())) {
+            return failedResult("name: " + entity.getName() + "已存在!");
+        }
         entity.setPassword(userService.computePasswordHash(entity.getPassword()));
 
         manager.create(entity);

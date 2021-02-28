@@ -60,7 +60,9 @@ public class DepartmentService extends BaseService {
         if (manager.get(entity.getId()) != null) {
             return failedResult("系Id: " + entity.getId() + "已存在!");
         }
-
+        if (repeat(manager.listName(), entity.getName())) {
+            return failedResult("系name: " + entity.getName() + "已存在!");
+        }
         manager.create(entity);
         return result("添加成功");
     }
