@@ -1,14 +1,15 @@
 package com.rainng.coursesystem.controller;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
-import org.springframework.validation.annotation.Validated;
+import javax.annotation.PostConstruct;
+
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,17 +19,15 @@ import com.rainng.coursesystem.dao.DepartmentDAO;
 import com.rainng.coursesystem.dao.MajorDAO;
 import com.rainng.coursesystem.dao.StudentDAO;
 import com.rainng.coursesystem.dao.TeacherDAO;
+import com.rainng.coursesystem.model.CacheMap;
 import com.rainng.coursesystem.model.entity.ClassEntity;
 import com.rainng.coursesystem.model.entity.CourseEntity;
 import com.rainng.coursesystem.model.entity.DepartmentEntity;
 import com.rainng.coursesystem.model.entity.MajorEntity;
 import com.rainng.coursesystem.model.entity.StudentEntity;
 import com.rainng.coursesystem.model.entity.TeacherEntity;
-import com.rainng.coursesystem.model.vo.request.LikeDataVo;
 import com.rainng.coursesystem.model.vo.response.ResultVO;
 import com.rainng.coursesystem.util.PinYinUtils;
-
-import net.sourceforge.pinyin4j.PinyinHelper;
 
 /**
  * @author zhangzhenxin <zhangzhenxin@kuaishou.com>
@@ -43,6 +42,7 @@ public class LikeDataController  extends BaseController{
     private DepartmentDAO departmentDAO;
     private MajorDAO majorDAO;
     private TeacherDAO teacherDAO;
+    private CacheMap cacheMap;
 
     public LikeDataController(ClassDAO classDAO,
                               CourseDAO courseDAO,
@@ -57,50 +57,85 @@ public class LikeDataController  extends BaseController{
         this.majorDAO = majorDAO;
         this.teacherDAO = teacherDAO;
     }
+    @PostConstruct
+    public void init(){
+        CacheMap cacheMap = new CacheMap();
+        this.cacheMap = cacheMap.bulid();
+    }
 
     @RequestMapping("/likeData/{type}")
     public ResultVO getLikeData(@PathVariable int type) {
         switch (type) {
             case 1 :{
+                if (cacheMap.get(type + "") != null) {
+                    return result(cacheMap.get(type + ""));
+                }
                 List<MajorEntity> majorEntities = majorDAO.listName();
-                return result(majorEntities.stream()
+                Set<Map<Object, Object>> collect = majorEntities.stream()
                         .map(entity -> Maps(entity.getName()))
-                                .collect(Collectors.toSet()));
+                        .collect(Collectors.toSet());
+                cacheMap.put(type + "", collect);
+                return result(collect);
             }
             case 2 : {
+                if (cacheMap.get(type + "") != null) {
+                    return result(cacheMap.get(type + ""));
+                }
                 List<DepartmentEntity> departmentEntities = departmentDAO.listName();
-                return result(departmentEntities.stream()
+                Set<Map<Object, Object>> collect = departmentEntities.stream()
                         .map(entity ->
                                 Maps(entity.getName()))
-                        .collect(Collectors.toSet()));
+                        .collect(Collectors.toSet());
+                cacheMap.put(type + "", collect);
+                return result(collect);
             }
             case 3 : {
+                if (cacheMap.get(type + "") != null) {
+                    return result(cacheMap.get(type + ""));
+                }
                 List<ClassEntity> classEntities = classDAO.listName();
-                return result(classEntities.stream()
+                Set<Map<Object, Object>> collect = classEntities.stream()
                         .map(entity ->
                                 Maps(entity.getName()))
-                        .collect(Collectors.toSet()));
+                        .collect(Collectors.toSet());
+                cacheMap.put(type + "", collect);
+                return result(collect);
             }
             case 4 : {
+                if (cacheMap.get(type + "") != null) {
+                    return result(cacheMap.get(type + ""));
+                }
                 List<StudentEntity> studentEntities = studentDAO.listName();
-                return result(studentEntities.stream()
+                Set<Map<Object, Object>> collect = studentEntities.stream()
                         .map(entity ->
                                 Maps(entity.getName()))
-                        .collect(Collectors.toSet()));
+                        .collect(Collectors.toSet());
+                cacheMap.put(type + "", collect);
+                return result(collect);
             }
             case 5 : {
+                if (cacheMap.get(type + "") != null) {
+                    return result(cacheMap.get(type + ""));
+                }
                 List<TeacherEntity> teacherEntities = teacherDAO.listName();
-                return result(teacherEntities.stream()
+                Set<Map<Object, Object>> collect = teacherEntities.stream()
                         .map(entity ->
                                 Maps(entity.getName()))
-                        .collect(Collectors.toSet()));
+                        .collect(Collectors.toSet());
+                cacheMap.put(type + "", collect);
+                return result(collect);
             }
             case 6 : {
+                if (cacheMap.get(type + "") != null) {
+                    return result(cacheMap.get(type + ""));
+                }
                 List<CourseEntity> courseEntities = courseDAO.listName();
-                return result(courseEntities.stream()
+                Set<Map<Object, Object>> collect = courseEntities.stream()
                         .map(entity ->
                                 Maps(entity.getName()))
-                        .collect(Collectors.toSet()));
+                        .collect(Collectors.toSet());
+                cacheMap.put(type + "", collect);
+                return result(collect);
             }
         }
         return  failedResult("false");
@@ -111,5 +146,9 @@ public class LikeDataController  extends BaseController{
         map.put("value", value);
         map.put("pinyin", PinYinUtils.getPinyinToLowerCase(value));
         return map;
+    }
+    @Scheduled(cron = "0 0/5 * * * ? ")
+    public void clearMap(){
+        cacheMap.clear();
     }
 }
