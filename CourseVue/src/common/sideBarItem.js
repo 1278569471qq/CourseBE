@@ -143,6 +143,20 @@ SideBarItem.items = [
     title: "管理员管理",
     userType: UserType.admin,
     permission: Permission.admin
+  },
+  {
+    icon: "el-icon-fa fa-id-badge",
+    index: "/feedback",
+    title: "反馈",
+    userType: UserType.admin,
+    permission: Permission.admin
+  },
+  {
+    icon: "el-icon-fa fa-id-badge",
+    index: "/feedback",
+    title: "反馈",
+    userType: UserType.student,
+    permission: Permission.student
   }
 ];
 

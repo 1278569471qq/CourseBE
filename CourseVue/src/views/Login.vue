@@ -42,8 +42,11 @@
 <!--             @click="qqLoginClick('qq')"-->
 <!--             id="qqLoginBtn"-->
 <!--        >QQ登录</div>-->
-        <a href="http://localhost:8081/qqAuth">登录</a>
+        <a href="http://localhost:8081/qqAuth">
+			<img src="../../public/static/qqLogin.png"  style="padding-top: 2px;" align="right"/>
+		</a>
       </el-form>
+	  
     </div>
   </div>
 </template>
@@ -104,6 +107,7 @@ export default {
 </script>
 
 <style scoped>
+
 .login-wrap {
   position: relative;
   width: 100%;
