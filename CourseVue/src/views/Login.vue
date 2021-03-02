@@ -37,6 +37,12 @@
         <div class="login-btn" v-loading="this.$store.state.loading">
           <el-button @click="submit()" type="primary">登录</el-button>
         </div>
+
+<!--        <div class="qqIcon" -->
+<!--             @click="qqLoginClick('qq')"-->
+<!--             id="qqLoginBtn"-->
+<!--        >QQ登录</div>-->
+        <a href="http://localhost:8081/qqAuth">登录</a>
       </el-form>
     </div>
   </div>
@@ -44,7 +50,7 @@
 
 <script>
 import { login } from "../api/user";
-
+import { qqAuthUrl } from "../api/user";
 export default {
   data: function() {
     return {
@@ -79,7 +85,20 @@ export default {
           });
         }
       });
+    },
+    l(){
+      qqAuthUrl();
     }
+    // // QQ 第三方登录
+    // qqLoginClick (value) {
+    //   console.log(value);
+    //   // 直接弹出授权页面，授权过后跳转到回调页面进行登录处理
+    //   // eslint-disable-next-line no-undef
+    //   QC.Login.showPopup({
+    //     appId: '101934681',
+    //     redirectURI: 'http://www.zzxblog.top/auth'
+    //   })
+    // }
   }
 };
 </script>

@@ -11,3 +11,5 @@ export const getLoginStatus = () => pureGet("/user/login/status");
 
 export const logout = () => pureGet("/user/logout");
 
+export const qqAuthUrl = () => pureGet("/qqAuth");
+

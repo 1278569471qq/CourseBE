@@ -6,6 +6,11 @@
     <meta content="width=device-width,initial-scale=1.0" name="viewport">
     <link rel="icon" href="favicon.ico" type="image/x-icon" />
     <link rel="shortcut icon" href="static/favicon.ico" type="image/x-icon" />
+    <script type="text/javascript"  charset="utf-8"
+            src="http://connect.qq.com/qc_jssdk.js"
+            data-appid="101934681"
+            data-redirecturi="http://www.zzxblog.top:8080/auth"
+    ></script>
     <title>大学生在线选课系统</title>
     <style>
         #loader {
@@ -113,14 +118,11 @@
     </style>
 </head>
 <body>
-<noscript>
-    <strong>非常抱歉, 课程管理系统只有在您启用JavaScript时才能访问</strong>
-</noscript>
 <div id="app">
 
     <div id="loader">
         <div class="ball-spin-fade-loader">
-            <div></div>
+            <div @click="useqqlogin"></div>
             <div></div>
             <div></div>
             <div></div>
