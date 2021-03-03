@@ -91,9 +91,6 @@ export default {
     },
     openNews(url) {
       window.open(url, "_blank");
-    },
-    handleClick(tab, event) {
-      console.log(tab, event);
     }
   },
   created() {
@@ -162,7 +159,7 @@ export default {
   content: "";
 }
 .clearfix:after {
-  clear: both
+  clear: both;
 }
 
 .box-card {

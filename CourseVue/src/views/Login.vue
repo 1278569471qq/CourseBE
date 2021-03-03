@@ -38,13 +38,10 @@
           <el-button @click="submit()" type="primary">登录</el-button>
         </div>
 
-<!--        <div class="qqIcon" -->
-<!--             @click="qqLoginClick('qq')"-->
-<!--             id="qqLoginBtn"-->
-<!--        >QQ登录</div>-->
-        <a href="http://localhost:8081/qqAuth">
-			<img src="../../public/static/qqLogin.png"  style="padding-top: 2px;" align="right"/>
-		</a>
+        <div class="qqIcon"
+             @click="qqLoginClick('qq')"
+             id="qqLoginBtn"
+        ><img src="../../public/static/qqLogin.png"  style="padding-top: 2px;" align="right"/></div>
       </el-form>
 	  
     </div>
@@ -91,17 +88,16 @@ export default {
     },
     l(){
       qqAuthUrl();
+    },
+    // QQ 第三方登录
+    qqLoginClick() {
+      // 直接弹出授权页面，授权过后跳转到回调页面进行登录处理
+      // eslint-disable-next-line no-undef
+      QC.Login.showPopup({
+        appId: '101934691',
+        redirectURI: 'http://www.zzxblog.top:8080/auth'
+      })
     }
-    // // QQ 第三方登录
-    // qqLoginClick (value) {
-    //   console.log(value);
-    //   // 直接弹出授权页面，授权过后跳转到回调页面进行登录处理
-    //   // eslint-disable-next-line no-undef
-    //   QC.Login.showPopup({
-    //     appId: '101934681',
-    //     redirectURI: 'http://www.zzxblog.top/auth'
-    //   })
-    // }
   }
 };
 </script>
