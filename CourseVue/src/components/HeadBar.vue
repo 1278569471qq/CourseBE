@@ -17,7 +17,7 @@
         </div>
 
         <div class="user-avatar">
-          <img src="../assets/avatars.jpg" />
+          <img v-bind:src="imgUrl" />
         </div>
 
         <el-dropdown @command="handleCommand" class="user-name" trigger="click">
@@ -27,6 +27,7 @@
           </span>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item command="logout">退出登录</el-dropdown-item>
+            <el-dropdown-item v-if="check" command="binding">绑定QQ</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
       </div>
@@ -35,12 +36,15 @@
 </template>
 <script>
 import { logout } from "../api/user";
+import * as api from "../api/user";
 
 export default {
   name: "Header",
   data() {
     return {
-      fullscreen: false
+      fullscreen: false,
+      check: true,
+      imgUrl: "http://zzxblog.top/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20200208165111.jpg"
     };
   },
   computed: {
@@ -55,6 +59,14 @@ export default {
           this.$store.commit("logout");
           this.$message.success("注销成功");
           this.$router.push("/login");
+        });
+      };
+      if (command === "binding") {
+        console.log("绑定qq");
+        // eslint-disable-next-line no-undef
+        QC.Login.showPopup({
+          appId: '101934691',
+          redirectURI: 'http://www.zzxblog.top/#/login'
         });
       }
     },
@@ -83,6 +95,18 @@ export default {
         }
       }
       this.fullscreen = !this.fullscreen;
+    }
+  },
+  async created() {
+    // eslint-disable-next-line no-undef
+    const che = QC.Login.check();
+    if (che) {
+      await api.tokenApi("url").then(res => {
+        if (res != 'false') {
+          this.imgUrl = res;
+          this.check = false;
+        }
+      });
     }
   }
 };

@@ -93,8 +93,7 @@ export default {
       // eslint-disable-next-line no-undef
       QC.Login.showPopup({
         appId: '101934691',
-        redirectURI: 'http://www.zzxblog.top/#/login',
-        target: 'self'
+        redirectURI: 'http://www.zzxblog.top/#/login'
       });
     }
   },
