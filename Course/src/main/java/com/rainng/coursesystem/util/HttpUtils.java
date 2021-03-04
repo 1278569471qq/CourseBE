@@ -21,12 +21,14 @@ public class HttpUtils {
     public RestTemplate restTemplate(RestTemplateBuilder builder){
         return builder.build();
     }
+
     public JSONObject sendGetRequest(String url) {
         String msg = restTemplate.getForObject(url, String.class);
         return JSON.parseObject(msg);
     }
 
-    public JSONObject sendPostRequest(String url) {
+    public JSONObject sendPostRequest(String url, String body) {
+        restTemplate.postForObject(url, body, String.class);
         return null;
     }
 }

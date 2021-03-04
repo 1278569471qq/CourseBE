@@ -20,7 +20,7 @@ import AdminCourse from "./views/admin/AdminCourse";
 import AdminStudentCourse from "./views/admin/AdminStudentCourse";
 import AdminAdmin from "./views/admin/AdminAdmin";
 import Home from "./views/Home";
-
+import Auth from "./views/authLogin";
 Vue.use(VueRouter);
 
 const routes = [
@@ -135,6 +135,11 @@ const routes = [
     path: "/login",
     name: "login",
     component: Login
+  },
+  {
+    path: "/auth",
+    name: "authLogin",
+    component: Auth
   }
 ];
 

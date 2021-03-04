@@ -42,6 +42,7 @@
              @click="qqLoginClick('qq')"
              id="qqLoginBtn"
         ><img src="../../public/static/qqLogin.png"  style="padding-top: 2px;" align="right"/></div>
+
       </el-form>
 	  
     </div>
@@ -49,8 +50,8 @@
 </template>
 
 <script>
-import { login } from "../api/user";
-import { qqAuthUrl } from "../api/user";
+  import {getLoginStatus, login} from "../api/user";
+import * as api from "../api/user";
 export default {
   data: function() {
     return {
@@ -86,18 +87,40 @@ export default {
         }
       });
     },
-    l(){
-      qqAuthUrl();
-    },
     // QQ 第三方登录
     qqLoginClick() {
       // 直接弹出授权页面，授权过后跳转到回调页面进行登录处理
       // eslint-disable-next-line no-undef
       QC.Login.showPopup({
         appId: '101934691',
-        redirectURI: 'http://www.zzxblog.top:8080/auth'
-      })
+        redirectURI: 'http://www.zzxblog.top/#/login',
+        target: 'self'
+      });
     }
+  },
+  async mounted() {
+    const href = window.location.href;
+    const index = href.indexOf("=");
+    if (index <= 0) {
+      // eslint-disable-next-line no-undef
+      const check = QC.Login.check();
+      if (check) {
+        await getLoginStatus().then(res => {
+          this.$store.commit("login", res);
+          if (res.loggedIn) {
+            this.$router.push("/");
+          }
+        });
+      }
+    } else {
+      const lastIndexOf = href.indexOf("&");
+      const token = href.substring(index + 1, lastIndexOf);
+      await api.tokenApi(token).then(res => {
+        console.log(res);
+      });
+    }
+    self.opener.location.reload();
+    window.close();
   }
 };
 </script>

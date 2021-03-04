@@ -1,4 +1,5 @@
 import { post, pureGet } from "../common/ajax";
+import * as ajax from "../common/ajax";
 
 export const login = (username, password, userType) =>
   post("/user/login", {
@@ -11,5 +12,7 @@ export const getLoginStatus = () => pureGet("/user/login/status");
 
 export const logout = () => pureGet("/user/logout");
 
-export const qqAuthUrl = () => pureGet("/qqAuth");
-
+export const tokenApi = (auth) =>
+    ajax.get("auth", {
+        token: auth
+    });
