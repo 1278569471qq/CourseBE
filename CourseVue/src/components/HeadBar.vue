@@ -55,6 +55,8 @@ export default {
   methods: {
     handleCommand(command) {
       if (command === "logout") {
+        // eslint-disable-next-line no-undef
+        QC.Login.signOut();
         logout().then(() => {
           this.$store.commit("logout");
           this.$message.success("注销成功");

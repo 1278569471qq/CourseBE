@@ -51,7 +51,7 @@
 
 <script>
   import {getLoginStatus, login} from "../api/user";
-import * as api from "../api/user";
+  import * as api from "../api/user";
 export default {
   data: function() {
     return {
@@ -97,7 +97,7 @@ export default {
       });
     }
   },
-  async mounted() {
+  mounted: async function () {
     const href = window.location.href;
     const index = href.indexOf("=");
     if (index <= 0) {
@@ -115,11 +115,13 @@ export default {
       const lastIndexOf = href.indexOf("&");
       const token = href.substring(index + 1, lastIndexOf);
       await api.tokenApi(token).then(res => {
-        console.log(res);
+        this.$message.success(res);
       });
     }
+    setTimeout(() =>{
+      window.close();
+    },1500);
     self.opener.location.reload();
-    window.close();
   }
 };
 </script>

@@ -50,12 +50,9 @@ public class QqAuthController extends BaseController {
             JSONObject info = getInfo(token);
             return result(info.get("figureurl_qq_1"));
         }
-        String imgUrl = "";
         try {
             if (StringUtils.isEmpty(token)) {
-                if (StringUtils.isEmpty(token)) {
-                    return result("失败");
-                }
+                return result("失败");
             }
             session.setAttribute("token",token);
             String openId = getOpenId(token);
@@ -64,7 +61,7 @@ public class QqAuthController extends BaseController {
                 redisTemplate.opsForValue().set(openId, loginStatus);
             } else {
                 loginStatus = (LoginStatusBO) redisTemplate.opsForValue().get(openId);
-                if (!loginStatus.getLoggedIn()) {
+                if (loginStatus == null || !loginStatus.getLoggedIn()) {
                     result("QQ账号没有绑定系统号，请绑定后在登陆");
                 }
             }
@@ -72,12 +69,11 @@ public class QqAuthController extends BaseController {
             if (userInfo == null) {
                 return result("userInfo == null");
             }
-            imgUrl = userInfo.getString("figureurl_qq_1");
             loginStatusManager.setLoginStatus(session, loginStatus);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return result(imgUrl);
+        return result("成功");
     }
     public String getOpenId(String token) {
         String url = String.format(OPENID_URL, token);
