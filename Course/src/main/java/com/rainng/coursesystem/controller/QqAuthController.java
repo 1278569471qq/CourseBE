@@ -1,5 +1,7 @@
 package com.rainng.coursesystem.controller;
 
+import java.util.concurrent.TimeUnit;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,17 +61,19 @@ public class QqAuthController extends BaseController {
             LoginStatusBO loginStatus = loginStatusManager.getLoginStatus(session);
             if (loginStatus.getLoggedIn()) {
                 redisTemplate.opsForValue().set(openId, loginStatus);
+                redisTemplate.expire(openId,1000, TimeUnit.DAYS);
             } else {
                 loginStatus = (LoginStatusBO) redisTemplate.opsForValue().get(openId);
+                System.out.println(loginStatus);
                 if (loginStatus == null || !loginStatus.getLoggedIn()) {
-                    result("QQ账号没有绑定系统号，请绑定后在登陆");
+                   return result("QQ账号没有绑定系统号，请绑定后在登陆");
                 }
+                loginStatusManager.setLoginStatus(session, loginStatus);
             }
             JSONObject userInfo = getInfo(token);
             if (userInfo == null) {
                 return result("userInfo == null");
             }
-            loginStatusManager.setLoginStatus(session, loginStatus);
         } catch (Exception e) {
             e.printStackTrace();
         }

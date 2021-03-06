@@ -38,10 +38,11 @@
           <el-button @click="submit()" type="primary">登录</el-button>
         </div>
 
-        <div class="qqIcon"
+        <a   href="javascript:void(0)"
+             class="qqIcon"
              @click="qqLoginClick('qq')"
              id="qqLoginBtn"
-        ><img src="../../public/static/qqLogin.png"  style="padding-top: 2px;" align="right"/></div>
+        ><img src="../../public/static/qqLogin.png"  style="padding-top: 2px;" align="right"/></a>
 
       </el-form>
 	  
@@ -95,6 +96,7 @@ export default {
         appId: '101934691',
         redirectURI: 'http://www.zzxblog.top/#/login'
       });
+      window.open("http://www.zzxblog.top/#/auth", '_self');
     }
   },
   mounted: async function () {
@@ -117,11 +119,8 @@ export default {
       await api.tokenApi(token).then(res => {
         this.$message.success(res);
       });
+      this.$router.push("/");
     }
-    setTimeout(() =>{
-      window.close();
-    },1500);
-    self.opener.location.reload();
   }
 };
 </script>
