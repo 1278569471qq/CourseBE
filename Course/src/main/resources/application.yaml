@@ -10,10 +10,6 @@ spring:
   redis:
     host: www.zzxblog.top
     port: 6379
-  session:
-    store-type: redis
-#    86400*3 = 259200  3天
-    timeout: 259200
   jackson:
     time-zone: Asia/Shanghai
   data:

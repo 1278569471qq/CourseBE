@@ -70,10 +70,6 @@ public class QqAuthController extends BaseController {
                 }
                 loginStatusManager.setLoginStatus(session, loginStatus);
             }
-            JSONObject userInfo = getInfo(token);
-            if (userInfo == null) {
-                return result("userInfo == null");
-            }
         } catch (Exception e) {
             e.printStackTrace();
         }

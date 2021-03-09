@@ -31,7 +31,6 @@ public class SdnuNewsManager extends BaseManager {
 
     public List<SdnuNewsBO> getAllNews() {
         Map<String, String> map = sdnuNewsDAO.getAllNews();
-
         List<SdnuNewsBO> newsList = new ArrayList<>(map.size());
         for (String key : map.keySet()) {
             String value = map.get(key);

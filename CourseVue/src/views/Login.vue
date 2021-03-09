@@ -43,7 +43,6 @@
              @click="qqLoginClick('qq')"
              id="qqLoginBtn"
         ><img src="../../public/static/qqLogin.png"  style="padding-top: 2px;" align="right"/></a>
-
       </el-form>
 	  
     </div>
@@ -52,7 +51,6 @@
 
 <script>
   import {getLoginStatus, login} from "../api/user";
-  import * as api from "../api/user";
 export default {
   data: function() {
     return {
@@ -90,37 +88,22 @@ export default {
     },
     // QQ 第三方登录
     qqLoginClick() {
+      window.open('https://graph.qq.com/oauth2.0/show?which=Login&display=pc&client_id=101934691&response_type=token&scope=all&redirect_uri=http%3A%2F%2Fwww.zzxblog.top%2F%23%2Fauth', 'newwindow', 'height=500, width=700, top=100,left=550, toolbar=no, menubar=no, scrollbars=no, resizable=no,location=no, status=no');
       // 直接弹出授权页面，授权过后跳转到回调页面进行登录处理
       // eslint-disable-next-line no-undef
-      QC.Login.showPopup({
-        appId: '101934691',
-        redirectURI: 'http://www.zzxblog.top/#/login'
-      });
-      window.open("http://www.zzxblog.top/#/auth", '_self');
+      //  QC.Login.showPopup({
+      //   appId: '101934691',
+      //   redirectURI: 'http://www.zzxblog.top/#/auth'
+      // });
     }
   },
   mounted: async function () {
-    const href = window.location.href;
-    const index = href.indexOf("=");
-    if (index <= 0) {
-      // eslint-disable-next-line no-undef
-      const check = QC.Login.check();
-      if (check) {
-        await getLoginStatus().then(res => {
-          this.$store.commit("login", res);
-          if (res.loggedIn) {
-            this.$router.push("/");
-          }
-        });
+    getLoginStatus().then(res => {
+      this.$store.commit("login", res);
+      if (res.loggedIn) {
+        this.$router.push("/");
       }
-    } else {
-      const lastIndexOf = href.indexOf("&");
-      const token = href.substring(index + 1, lastIndexOf);
-      await api.tokenApi(token).then(res => {
-        this.$message.success(res);
-      });
-      this.$router.push("/");
-    }
+    });
   }
 };
 </script>

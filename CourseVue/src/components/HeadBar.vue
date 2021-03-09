@@ -66,10 +66,7 @@ export default {
       if (command === "binding") {
         console.log("绑定qq");
         // eslint-disable-next-line no-undef
-        QC.Login.showPopup({
-          appId: '101934691',
-          redirectURI: 'http://www.zzxblog.top/#/login'
-        });
+        window.open('https://graph.qq.com/oauth2.0/show?which=Login&display=pc&client_id=101934691&response_type=token&scope=all&redirect_uri=http%3A%2F%2Fwww.zzxblog.top%2F%23%2Fauth', 'newwindow', 'height=500, width=700, top=100,left=550, toolbar=no, menubar=no, scrollbars=no, resizable=no,location=no, status=no');
       }
     },
     handleFullScreen() {
