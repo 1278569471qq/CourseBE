@@ -1,5 +1,5 @@
 <template>
-    <div>请稍等。。。。。。。</div>
+    <div>请稍等一下。。。。。。。</div>
 </template>
 
 <script>
@@ -17,11 +17,13 @@
                 const lastIndexOf = href.indexOf("&");
                 const token = href.substring(index + 1, lastIndexOf);
                 await api.tokenApi(token).then(res => {
-                    console.log(res);
+                    this.$message.success(res == null ? "成功" : res);
                 });
             }
-            self.opener.location.reload();
-            window.close();
+            setTimeout(() => {
+                self.opener.location.reload();
+                window.close();
+            }, 2000);
         }
     }
 </script>

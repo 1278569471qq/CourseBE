@@ -56,6 +56,9 @@ axiosInstance.interceptors.response.use(
       return Promise.reject(new Error("NO_LOGIN"));
     } else if (code === 1) {
       innerMessage("error", "错误: " + message);
+      setTimeout(() => {
+        window.close();
+      }, 2000);
       return Promise.reject(new Error("FAIL"));
     } else if (code === 2) {
       innerMessage("info", "您不是此角色");

@@ -16,3 +16,6 @@ export const tokenApi = (auth) =>
     ajax.get("auth", {
         token: auth
     });
+
+export const getAuthorUrl = () => ajax.pureGet("/qq/author/url")
+

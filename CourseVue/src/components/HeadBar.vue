@@ -96,15 +96,13 @@ export default {
       this.fullscreen = !this.fullscreen;
     }
   },
-  async created() {
+  created() {
     // eslint-disable-next-line no-undef
     const che = QC.Login.check();
     if (che) {
-      await api.tokenApi("url").then(res => {
-        if (res != 'false') {
+       api.getAuthorUrl().then(res => {
           this.imgUrl = res;
           this.check = false;
-        }
       });
     }
   }

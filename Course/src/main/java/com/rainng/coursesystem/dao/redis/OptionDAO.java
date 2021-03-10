@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class OptionDAO {
-    private static final String HASH_NAME = "rc_option";
+    private static final String HASH_NAME = "option";
     private static final String ALLOW_STUDENT_SELECT = "allow_student_select";
     private static final String ALLOW_TEACHER_GRADE = "allow_teacher_grade";
 

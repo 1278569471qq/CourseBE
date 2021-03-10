@@ -10,12 +10,13 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import com.rainng.coursesystem.dao.redis.SdnuNewsDAO;
 import com.rainng.coursesystem.model.bo.SdnuNewsBO;
-
+@EnableScheduling
 @Component
 public class SdnuNewsManager extends BaseManager {
     private static final int CRAWL_INTERVAL = 60 * 60 * 1000;
@@ -45,6 +46,7 @@ public class SdnuNewsManager extends BaseManager {
 
     @Scheduled(fixedDelay = CRAWL_INTERVAL)
     public void crawlNews() {
+        System.out.println("》》》》》》》》》开始《《《《《《《《《《");
         Document pageDoc = fetchPage();
         if (pageDoc == null) {
             return;
@@ -59,6 +61,8 @@ public class SdnuNewsManager extends BaseManager {
         for (SdnuNewsBO news : newsLatestList) {
             sdnuNewsDAO.addLatestNews(news.getTitle(), news.getDate() + "&&" + news.getUrl());
         }
+
+        System.out.println("》》》》》》》》》结束《《《《《《《《《《");
     }
 
 
