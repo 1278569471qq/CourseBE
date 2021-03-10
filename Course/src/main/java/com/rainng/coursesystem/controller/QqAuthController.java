@@ -61,7 +61,6 @@ public class QqAuthController extends BaseController {
                 return result("绑定成功");
             } else {
                 loginStatus = (LoginStatusBO) redisTemplate.opsForValue().get(openId);
-                System.out.println(loginStatus);
                 if (loginStatus == null || !loginStatus.getLoggedIn()) {
                    return failedResult("QQ账号没有绑定系统号，请绑定后在登陆");
                 }
