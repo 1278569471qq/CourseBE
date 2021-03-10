@@ -102,9 +102,13 @@ export default {
     if (che) {
        api.getAuthorUrl().then(res => {
           this.imgUrl = res;
-          this.check = false;
       });
     }
+    api.getAuthorBind().then(res => {
+      if (res){
+        this.check = false;
+      }
+    });
   }
 };
 </script>

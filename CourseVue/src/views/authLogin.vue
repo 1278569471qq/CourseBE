@@ -17,7 +17,8 @@
                 const lastIndexOf = href.indexOf("&");
                 const token = href.substring(index + 1, lastIndexOf);
                 await api.tokenApi(token).then(res => {
-                    this.$message.success(res == null ? "成功" : res);
+                    const resp = res.toString();
+                    this.$message.success(resp);
                 });
             }
             setTimeout(() => {

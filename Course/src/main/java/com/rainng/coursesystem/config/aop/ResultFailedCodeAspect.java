@@ -30,7 +30,7 @@ public class ResultFailedCodeAspect {
             return result;
         }
 
-        if (result.getCode() == ResultVO.FAIL) {
+        if (result.getCode() == ResultVO.FAIL || result.getCode() == ResultVO.NO_QQ_LOGIN) {
             response.setStatus(HttpStatusCode.NOT_ACCEPTABLE);
         }
 

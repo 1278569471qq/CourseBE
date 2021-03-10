@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,6 +36,7 @@ import com.rainng.coursesystem.util.PinYinUtils;
  */
 
 @RestController
+@EnableScheduling
 public class LikeDataController  extends BaseController{
     private ClassDAO classDAO;
     private CourseDAO courseDAO;
@@ -43,7 +45,6 @@ public class LikeDataController  extends BaseController{
     private MajorDAO majorDAO;
     private TeacherDAO teacherDAO;
     private CacheMap cacheMap;
-
     public LikeDataController(ClassDAO classDAO,
                               CourseDAO courseDAO,
                               StudentDAO studentDAO,
@@ -147,7 +148,7 @@ public class LikeDataController  extends BaseController{
         map.put("pinyin", PinYinUtils.getPinyinToLowerCase(value));
         return map;
     }
-    @Scheduled(cron = "0 0/5 * * * ? ")
+    @Scheduled(cron = "0/10 * * * * ? ")
     public void clearMap(){
         cacheMap.clear();
     }

@@ -10,6 +10,7 @@ spring:
   redis:
     host: www.zzxblog.top
     port: 6379
+    password: zzx337653788~
   jackson:
     time-zone: Asia/Shanghai
   data:

@@ -6,6 +6,7 @@ import java.io.Serializable;
 
 @Data
 public class ResultVO implements Serializable {
+    public static final int NO_QQ_LOGIN = -2;
     public static final int NO_LOGIN = -1;
     public static final int SUCCESS = 0;
     public static final int FAIL = 1;

@@ -14,7 +14,9 @@ public class BaseController {
     protected ResultVO failedResult(String message) {
         return new ResultVO(ResultVO.FAIL, message, null);
     }
-
+    protected ResultVO failedQQResult(String message) {
+        return new ResultVO(ResultVO.NO_QQ_LOGIN, message, null);
+    }
     protected ResultVO failedResult(String message, Object data) {
         return new ResultVO(ResultVO.FAIL, message, data);
     }
@@ -22,4 +24,6 @@ public class BaseController {
     protected boolean isNullOrEmpty(String str) {
         return "".equals(str);
     }
+
+
 }

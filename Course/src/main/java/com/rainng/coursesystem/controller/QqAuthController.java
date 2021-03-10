@@ -1,8 +1,5 @@
 package com.rainng.coursesystem.controller;
 
-import java.util.Optional;
-import java.util.concurrent.TimeUnit;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.data.redis.core.RedisTemplate;
@@ -17,7 +14,6 @@ import com.rainng.coursesystem.dao.AdminDAO;
 import com.rainng.coursesystem.manager.LoginStatusManager;
 import com.rainng.coursesystem.manager.UserManager;
 import com.rainng.coursesystem.model.bo.LoginStatusBO;
-import com.rainng.coursesystem.model.entity.AdminEntity;
 import com.rainng.coursesystem.model.vo.response.ResultVO;
 import com.rainng.coursesystem.util.HttpUtils;
 
@@ -61,13 +57,15 @@ public class QqAuthController extends BaseController {
                 return result("绑定成功");
             } else {
                 loginStatus = (LoginStatusBO) redisTemplate.opsForValue().get(openId);
+                System.out.println("loginStatus : " + loginStatus);
                 if (loginStatus == null || !loginStatus.getLoggedIn()) {
-                   return failedResult("QQ账号没有绑定系统号，请绑定后在登陆");
+                   return failedQQResult("QQ账号没有绑定系统号，请绑定后在登陆");
                 }
                 loginStatusManager.setLoginStatus(session, loginStatus);
             }
         } catch (Exception e) {
             e.printStackTrace();
+            return failedQQResult("未知");
         }
         return result("成功");
     }
@@ -75,6 +73,7 @@ public class QqAuthController extends BaseController {
         String url = String.format(OPENID_URL, token);
         JSONObject response = httpUtils.sendGetRequest(url);
         String openid = response.getString("openid");
+        session.setAttribute("openId", openid);
         return openid;
     }
 
@@ -90,9 +89,26 @@ public class QqAuthController extends BaseController {
     public ResultVO getAuthorUrl() {
         String token = (String) session.getAttribute("token");
         if (StringUtils.isEmpty(token)) {
-            return failedResult("false");
+            return result("http://zzxblog.top/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20200208165111.jpg");
         }
         JSONObject info = getInfo(token);
         return result(info.get("figureurl_qq_1"));
+    }
+    @RequestMapping("/qq/author/bind")
+    public ResultVO getAuthorBind() {
+        String token = (String) session.getAttribute("token");
+        String openId = (String) session.getAttribute("openId");
+        if (StringUtils.isEmpty(token) || StringUtils.isEmpty(openId)) {
+            return result(false);
+        }
+        LoginStatusBO loginStatus = (LoginStatusBO) redisTemplate.opsForValue().get(openId);
+        if (loginStatus == null || !loginStatus.getLoggedIn()) {
+            return result(false);
+        }
+        LoginStatusBO user = loginStatusManager.getLoginStatus(session);
+        if (!user.getLoggedIn() || !loginStatus.getUserId().equals(user.getUserId())) {
+            return result(false);
+        }
+        return result(true);
     }
 }

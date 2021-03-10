@@ -49,16 +49,21 @@ axiosInstance.interceptors.response.use(
     let message = error.response.data.message;
     let data = error.response.data.data;
     subtractRequestCount();
-
+    if (code === -2) {
+      innerMessage("error", "错误: " + message);
+      // eslint-disable-next-line no-undef
+      QC.Login.signOut();
+      setTimeout(() => {
+        window.close();
+      }, 2000);
+      return Promise.reject(new Error("FAIL"));
+    }
     if (code === -1) {
       innerMessage("info", "需要登录");
       setTimeout(() => (window.location.href = "/#/login"), 250);
       return Promise.reject(new Error("NO_LOGIN"));
     } else if (code === 1) {
       innerMessage("error", "错误: " + message);
-      setTimeout(() => {
-        window.close();
-      }, 2000);
       return Promise.reject(new Error("FAIL"));
     } else if (code === 2) {
       innerMessage("info", "您不是此角色");
