@@ -12,9 +12,9 @@
       <div class="query-form">
         <el-row :gutter="20" class="demo-autocomplete">
           <el-col :span="2">
-            <el-button @click="create" icon="el-icon-plus">创建</el-button>
+            <el-button @click="create" icon="el-icon-plus" circle></el-button>
           </el-col>
-          <el-col :offset="14" :span="3">
+          <el-col :offset="16" :span="3">
             <el-autocomplete
               class="inline-input"
               @keyup.enter.native="query"
@@ -22,33 +22,23 @@
               v-model="queryForm.name"
               :fetch-suggestions="querySearch"
               :trigger-on-focus="false"
-            ></el-autocomplete>
+            ><i slot="prefix" class="el-input__icon el-icon-search"></i></el-autocomplete>
           </el-col>
           <el-col :span="3">
-            <el-button @click="query" icon="el-icon-search" type="primary"
-              >搜索
-            </el-button>
+            <el-button @click="query" icon="el-icon-search" circle></el-button>
           </el-col>
         </el-row>
       </div>
 
       <div class="table">
         <el-table :data="tableData" stripe>
-          <el-table-column label="系Id" prop="id" />
-          <el-table-column label="系名" prop="name" />
-          <el-table-column label="专业数" prop="majorCount" />
-          <el-table-column label="教师数" prop="teacherCount" />
+          <el-table-column label="系" prop="name" />
+          <el-table-column label="专业数量" align="center"  prop="majorCount" />
+          <el-table-column label="教师数量"  align="center" prop="teacherCount" />
           <el-table-column align="center" label="操作" width="200px">
             <template slot-scope="scope">
-              <el-button @click="edit(scope.row.id)" size="mini" type="success"
-                >编辑
-              </el-button>
-              <el-button
-                @click="deleteItem(scope.row.id)"
-                size="mini"
-                type="danger"
-                >删除
-              </el-button>
+              <el-button @click="edit(scope.row.id)" type="primary" icon="el-icon-edit" circle></el-button>
+              <el-button @click="deleteItem(scope.row.id)" type="danger" icon="el-icon-delete" circle></el-button>
             </template>
           </el-table-column>
         </el-table>

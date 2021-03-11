@@ -12,7 +12,7 @@
       <div class="query-form">
         <el-row :gutter="20">
           <el-col :span="2">
-            <el-button @click="create" icon="el-icon-plus">创建</el-button>
+            <el-button @click="create" icon="el-icon-plus" circle></el-button>
           </el-col>
           <el-col :offset="10" :span="3">
             <el-autocomplete
@@ -21,7 +21,7 @@
               v-model="queryForm.name"
               :fetch-suggestions="querySearchCour"
               :trigger-on-focus="false"
-            />
+            ><i slot="prefix" class="el-input__icon el-icon-search"></i></el-autocomplete>
           </el-col>
           <el-col :span="3">
             <el-autocomplete
@@ -30,7 +30,7 @@
               v-model="queryForm.teacherName"
               :fetch-suggestions="querySearchTeacher"
               :trigger-on-focus="false"
-            />
+            ><i slot="prefix" class="el-input__icon el-icon-search"></i></el-autocomplete>
           </el-col>
           <el-col :span="3">
             <el-autocomplete
@@ -39,19 +39,17 @@
               v-model="queryForm.departmentName"
               :fetch-suggestions="querySearchDep"
               :trigger-on-focus="false"
-            />
+              header-cell-style="border-radius: 30px"
+            ><i slot="prefix" class="el-input__icon el-icon-search"></i></el-autocomplete>
           </el-col>
           <el-col :span="3">
-            <el-button @click="query" icon="el-icon-search" type="primary"
-              >搜索
-            </el-button>
+            <el-button @click="query" icon="el-icon-search" circle></el-button>
           </el-col>
         </el-row>
       </div>
 
       <div class="table">
         <el-table :data="tableData" stripe>
-          <el-table-column label="课程Id" prop="id" />
           <el-table-column label="课程名" prop="name" width="200px" />
           <el-table-column label="教师" prop="teacherName" />
           <el-table-column label="所属系" prop="departmentName" />
@@ -61,21 +59,14 @@
             align="center"
             label="上课时间"
             prop="time"
-            width="130px"
+            width="120px"
           />
           <el-table-column label="已选人数" prop="selectedCount" />
           <el-table-column label="最大容量" prop="maxSize" />
           <el-table-column align="center" label="操作" width="200px">
             <template slot-scope="scope">
-              <el-button @click="edit(scope.row.id)" size="mini" type="success"
-                >编辑
-              </el-button>
-              <el-button
-                @click="deleteItem(scope.row.id)"
-                size="mini"
-                type="danger"
-                >删除
-              </el-button>
+              <el-button @click="edit(scope.row.id)" type="primary" icon="el-icon-edit" circle></el-button>
+              <el-button @click="deleteItem(scope.row.id)" type="danger" icon="el-icon-delete" circle></el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -139,7 +130,14 @@
             <el-input type="number" v-model="entityForm.credit"></el-input>
           </el-form-item>
           <el-form-item label="最大容量">
-            <el-input type="number" v-model="entityForm.maxSize"></el-input>
+            <div class="block">
+              <el-slider
+                      max="300"
+                      v-model="entityForm.maxSize"
+                      show-input
+              >
+              </el-slider>
+            </div>
           </el-form-item>
           <el-form-item label="考试时间">
             <el-date-picker

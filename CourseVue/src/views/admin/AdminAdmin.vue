@@ -12,27 +12,19 @@
       <div class="query-form">
         <el-row :gutter="20">
           <el-col :span="2">
-            <el-button @click="create" icon="el-icon-plus">创建</el-button>
+            <el-button @click="create" icon="el-icon-plus" circle></el-button>
           </el-col>
         </el-row>
       </div>
 
       <div class="table">
         <el-table :data="tableData" stripe>
-          <el-table-column label="管理员Id" prop="id" />
           <el-table-column label="管理员用户名" prop="username" />
           <el-table-column label="权限个数" prop="permission" />
           <el-table-column align="center" label="操作" width="200px">
             <template slot-scope="scope">
-              <el-button @click="edit(scope.row.id)" size="mini" type="success"
-                >编辑
-              </el-button>
-              <el-button
-                @click="deleteItem(scope.row.id)"
-                size="mini"
-                type="danger"
-                >删除
-              </el-button>
+              <el-button @click="edit(scope.row.id)" type="primary" icon="el-icon-edit" circle></el-button>
+              <el-button @click="deleteItem(scope.row.id)" type="danger" icon="el-icon-delete" circle></el-button>
             </template>
           </el-table-column>
         </el-table>

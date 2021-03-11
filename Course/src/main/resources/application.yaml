@@ -19,4 +19,4 @@ spring:
 
 mybatis-plus:
   mapper-locations: classpath:mapping/*.xml
-  type-aliases-package: com.rainng.coursesystem.model
+  type-aliases-package: com.zzx.coursesystem.model
