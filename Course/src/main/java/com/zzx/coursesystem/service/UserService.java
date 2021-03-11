@@ -50,7 +50,6 @@ public class UserService extends BaseService {
 
     public ResultVO getLoginStatus() {
         LoginStatusBO statusBO = loginStatusManager.getLoginStatus(session);
-        System.out.println("out :" + session.getId());
         return result(statusBO);
     }
 

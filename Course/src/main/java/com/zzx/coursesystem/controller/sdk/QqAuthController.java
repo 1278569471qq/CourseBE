@@ -1,4 +1,4 @@
-package com.zzx.coursesystem.controller;
+package com.zzx.coursesystem.controller.sdk;
 
 import javax.servlet.http.HttpSession;
 
@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
+import com.zzx.coursesystem.controller.BaseController;
 import com.zzx.coursesystem.dao.AdminDAO;
 import com.zzx.coursesystem.manager.LoginStatusManager;
 import com.zzx.coursesystem.manager.UserManager;
@@ -26,19 +27,15 @@ import com.zzx.coursesystem.util.HttpUtils;
 public class QqAuthController extends BaseController {
     private final HttpUtils httpUtils;
     private final HttpSession session;
-    private final UserManager manager;
-    private final AdminDAO adminDAO;
     private final LoginStatusManager loginStatusManager;
     private final RedisTemplate redisTemplate;
     private final String OPENID_URL = "https://graph.qq.com/oauth2.0/me?access_token=%s&fmt=json";
     private final String USER_URL = "https://graph.qq.com/user/get_user_info?access_token=%s&" +
             "oauth_consumer_key=101934691&openid=%s";
 
-    public QqAuthController(HttpUtils httpUtils, HttpSession session, UserManager manager, AdminDAO adminDAO, LoginStatusManager loginStatusManager, RedisTemplate redisTemplate) {
+    public QqAuthController(HttpUtils httpUtils, HttpSession session, LoginStatusManager loginStatusManager, RedisTemplate redisTemplate) {
         this.httpUtils = httpUtils;
         this.session = session;
-        this.manager = manager;
-        this.adminDAO = adminDAO;
         this.loginStatusManager = loginStatusManager;
         this.redisTemplate = redisTemplate;
     }

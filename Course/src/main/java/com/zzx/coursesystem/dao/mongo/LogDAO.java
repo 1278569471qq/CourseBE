@@ -22,6 +22,9 @@ public class LogDAO {
         if (entity.getResultCode() == null || entity.getRequestUrl() == null) {
             return;
         }
+        if (entity.getRequestUrl().indexOf("/user/log") >= 0) {
+            return;
+        }
         repository.insert(entity);
     }
     public Page<LogEntity> getAll() {

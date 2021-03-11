@@ -47,10 +47,10 @@ public class UserController extends BaseController {
 
 
     @RequestMapping("/log/{page}")
-    public ResultVO logout(@PathVariable("page") Integer Page) {
+    public ResultVO getLog(@PathVariable("page") Integer Page) {
         org.springframework.data.domain.Page<LogEntity> logAll = logDAO.getAll();
         List<LogEntity> content = logAll.getContent();
-            System.out.println(logAll.getTotalPages());
+        System.out.println(logAll.getNumber());
         return result(content);
     }
 

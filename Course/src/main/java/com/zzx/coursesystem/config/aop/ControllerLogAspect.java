@@ -6,13 +6,16 @@ import com.zzx.coursesystem.model.bo.LoginStatusBO;
 import com.zzx.coursesystem.model.constant.HttpStatusCode;
 import com.zzx.coursesystem.model.entity.mongo.LogEntity;
 import com.zzx.coursesystem.model.vo.response.ResultVO;
+import com.zzx.coursesystem.util.HttpUtils;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -28,10 +31,14 @@ public class ControllerLogAspect {
 
     private final LoginStatusManager loginStatusManager;
     private final LogDAO logDAO;
+    private final HttpUtils httpUtils;
+    private final RedisTemplate redisTemplate;
 
-    public ControllerLogAspect(LoginStatusManager loginStatusManager, LogDAO logDAO) {
+    public ControllerLogAspect(LoginStatusManager loginStatusManager, LogDAO logDAO, HttpUtils httpUtils, RedisTemplate redisTemplate) {
         this.loginStatusManager = loginStatusManager;
         this.logDAO = logDAO;
+        this.httpUtils = httpUtils;
+        this.redisTemplate = redisTemplate;
     }
 
     @Pointcut("execution(public * com.zzx.coursesystem.controller..*.*(..)) || " +
@@ -69,10 +76,21 @@ public class ControllerLogAspect {
             if (request.getQueryString() != null) {
                 requestUrl += "?" + request.getQueryString();
             }
-            String ipAddr = getIpAddr(request);
-            logEntity.setIp(ipAddr);
+            String ip = getIpAddr(request);
+            logEntity.setIp(ip);
+            if (ip.equals("0:0:0:0:0:0:0:1") || ip.equals("127.0.0.1")) {
+                logEntity.setLocation("测试");
+            } else {
+                String location = (String) redisTemplate.opsForHash().get("IP_BAIDU_LOCATION", ip);
+                if (StringUtils.isEmpty(location)) {
+                    location = httpUtils.getLocation(ip).getJSONObject("content").getString("address");
+                    redisTemplate.opsForHash().put("IP_BAIDU_LOCATION", ip, location);
+                }
+                logEntity.setLocation(location);
+            }
             logEntity.setRequestUrl(requestUrl);
             logEntity.setUserId(loginStatus.getUserId());
+            logEntity.setUserName(loginStatus.getUsername());
             logEntity.setUserType(loginStatus.getUserType());
         }
 
