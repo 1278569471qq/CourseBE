@@ -9,7 +9,8 @@ Permission.teacher = 16;
 Permission.course = 32;
 Permission.studentCourse = 64;
 Permission.admin = 128;
+Permission.log = 256;
 
-Permission.permissionCount = 8;
+Permission.permissionCount = 9;
 
 export default Permission;

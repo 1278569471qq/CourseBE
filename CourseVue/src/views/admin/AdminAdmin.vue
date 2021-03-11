@@ -45,6 +45,7 @@
               <el-checkbox label="32" name="priGroup">课程管理</el-checkbox>
               <el-checkbox label="64" name="priGroup">选课修改</el-checkbox>
               <el-checkbox label="128" name="priGroup">管理员管理</el-checkbox>
+              <el-checkbox label="256" name="priGroup">日志管理员</el-checkbox>
             </el-checkbox-group>
           </el-form-item>
           <el-form-item label="密码">

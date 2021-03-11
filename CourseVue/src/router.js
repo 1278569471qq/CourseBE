@@ -21,6 +21,7 @@ import AdminStudentCourse from "./views/admin/AdminStudentCourse";
 import AdminAdmin from "./views/admin/AdminAdmin";
 import Home from "./views/Home";
 import Auth from "./views/authLogin";
+import feedback from "./views/feedback";
 Vue.use(VueRouter);
 
 const routes = [
@@ -128,6 +129,11 @@ const routes = [
         path: "/admin/admin",
         name: "admin-admin",
         component: AdminAdmin
+      },
+      {
+        path: "/feedback",
+        name: "feedback",
+        component: feedback
       }
     ]
   },
