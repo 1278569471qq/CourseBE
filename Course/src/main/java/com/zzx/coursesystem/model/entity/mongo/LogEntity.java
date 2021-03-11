@@ -7,6 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Document("request-log")
@@ -23,7 +24,7 @@ public class LogEntity {
     private String location;
     private Integer resultCode;
     private Long executeTime;
-
+    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     @Indexed(expireAfterSeconds = 864000) //10天
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss") //出参
     private Date datetime = new Date();

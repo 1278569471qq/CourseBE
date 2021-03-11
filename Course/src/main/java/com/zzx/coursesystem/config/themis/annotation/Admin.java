@@ -26,8 +26,10 @@ public @interface Admin {
     int STUDENT_COURSE_MANAGE = 64;
     // 管理员管理
     int ADMIN_MANAGE = 128;
+    // 日志管理
+    int LOG_MANAGE = 256;
     // 所有权限
-    int ALL = 255;
+    int ALL = 511;
 
     int value() default 0;
 }
