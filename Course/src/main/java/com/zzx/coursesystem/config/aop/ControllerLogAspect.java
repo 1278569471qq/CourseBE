@@ -57,6 +57,7 @@ public class ControllerLogAspect {
         try {
             result = joinPoint.proceed();
         } catch (Throwable ex) {
+            ex.printStackTrace();
             log.setException(ex.getMessage());
             setResponseCode(HttpStatusCode.INTERNAL_SERVER_ERROR);
             result = new ResultVO(ResultVO.SERVER_ERROR, "未知错误", ex.getMessage());

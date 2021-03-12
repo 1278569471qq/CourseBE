@@ -24,3 +24,6 @@ export const getAuthorBind = () => ajax.pureGet("/qq/author/bind")
 
 export const getLogs = (page) => ajax.pureGet("/user/log/" + page)
 
+
+export const getCurrentUsers = () => ajax.pureGet("/user/current/user")
+

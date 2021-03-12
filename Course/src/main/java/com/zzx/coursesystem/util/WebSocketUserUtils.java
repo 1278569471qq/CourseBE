@@ -1,6 +1,11 @@
 package com.zzx.coursesystem.util;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -14,13 +19,16 @@ import javax.websocket.server.ServerEndpoint;
 
 import org.springframework.stereotype.Component;
 
+import com.zzx.coursesystem.model.entity.mongo.LogEntity;
+
 /**
  * @author zhangzhenxin <zhangzhenxin@kuaishou.com>
- * Created on 2021-03-11
+ * Created on 2021-03-12
  */
-@ServerEndpoint(value = "/web/socket/log/{sid}")
+
+@ServerEndpoint(value = "/web/socket/user/{sid}")
 @Component
-public class WebSocketUtils {
+public class WebSocketUserUtils {
     //静态变量，用来记录当前在线连接数。应该把它设计成线程安全的。
     private static AtomicInteger onlineNum = new AtomicInteger();
 
@@ -50,7 +58,7 @@ public class WebSocketUtils {
     public void onOpen(Session session, @PathParam(value = "sid") String userName){
         sessionPools.put(userName, session);
         addOnlineCount();
-        System.out.println(userName + "进入log页面！当前人数为" + onlineNum);
+        System.out.println(userName + "进入页面！当前人数为" + onlineNum);
     }
 
     //关闭连接时调用
@@ -58,7 +66,7 @@ public class WebSocketUtils {
     public void onClose(@PathParam(value = "sid") String userName){
         sessionPools.remove(userName);
         subOnlineCount();
-        System.out.println(userName + "退出日志页面！当前人数为" + onlineNum);
+        System.out.println(userName + "断开连接！当前人数为" + onlineNum);
     }
 
     //收到客户端信息
@@ -68,7 +76,7 @@ public class WebSocketUtils {
         System.out.println(message);
         for (Session session: sessionPools.values()) {
             try {
-//                sendMessage(session, message);
+                sendMessage(session, message);
             } catch(Exception e){
                 e.printStackTrace();
                 continue;
@@ -99,5 +107,20 @@ public class WebSocketUtils {
 
     public static void subOnlineCount() {
         onlineNum.decrementAndGet();
+    }
+
+    public static Map getCurUsers(){
+        Enumeration<String> keys = sessionPools.keys();
+        Map<Object, Object> result = new HashMap<>();
+        result.put("total", onlineNum.get());
+        List<LogEntity> userNames = new ArrayList<>();
+        while (keys.hasMoreElements()) {
+            String userName = keys.nextElement();
+            LogEntity logEntity = new LogEntity();
+            logEntity.setUserName(userName);
+            userNames.add(logEntity);
+        }
+        result.put("users", userNames);
+        return result;
     }
 }
