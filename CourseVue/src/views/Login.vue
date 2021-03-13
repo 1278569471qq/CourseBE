@@ -28,19 +28,19 @@
         <el-form-item prop="userType">
           <el-radio-group v-model="formData.userType">
             <el-radio label="1">学生</el-radio>
-            <el-radio label="2">教师</el-radio>
+            <el-radio label="2" style="padding-left: 30px;padding-right: 35px">教师</el-radio>
             <el-radio label="3">教务管理员</el-radio>
           </el-radio-group>
         </el-form-item>
         <div class="login-btn" v-loading="this.$store.state.loading">
-          <el-button style="border-radius: 30px;height: 44px" @click="submit()" type="primary">点击登录</el-button>
+          <el-button style="height: 44px;" @click="submit()"  type="primary" round>点击登录</el-button>
         </div>
-        <el-divider content-position="center" style="color: #8c939d;"><span class="divider11">第三方登陆</span></el-divider>
+        <el-divider content-position="center" style="color: #8c939d;"><span>第三方登陆</span></el-divider>
         <a   href="javascript:void(0)"
-             class="qqIcon"
              @click="qqLoginClick('qq')"
              id="qqLoginBtn"
-        ><img src="../../public/static/qq.png" class="login-qq"/></a>
+             style="margin-left: 46%;"
+        ><img @click="qqLoginClick('qq')" src="../../public/static/qq.png" class="login-qq"/></a>
       </el-form>
     </div>
   </div>
@@ -138,9 +138,6 @@ export default {
   border-radius: 30px;
   height: 47px;
 }
-.divider11>>>.el-divider{
-  color: #8c939d;
-}
 .el-divider__text {
   color: #a8acb5;
 }
@@ -157,10 +154,15 @@ export default {
   height: 36px;
 }
 .login-qq {
-  width: 10%;
-  height: 10%;
-  padding-left: 46%;
+  width: 8%;
+  height: 8%;
   align:center;
+}
+/deep/input::-webkit-input-placeholder {
+  color: #b3b3bb;
+}
+/deep/.el-radio{
+  padding-right: 20px;
 }
 .el-radio {
   color: #8c939d;

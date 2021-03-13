@@ -66,7 +66,8 @@ export default {
       tableData: [],
       userTableData: [],
       websock: null,
-      total: 0
+      total: 0,
+      inter:null
     };
   },
   methods: {
@@ -135,7 +136,7 @@ export default {
     if(this.websock != null) {
       this.websock.close(); //离开路由之后断开websocket连接
     }
-    Config.backEndUrl
+    clearInterval(this.inter);
   },
   created() {
     this.initWebSocket();
@@ -148,13 +149,13 @@ export default {
     });
   },
   mounted() {
-    setInterval(()=>{
+   this.inter = setInterval(()=>{
       api.getCurrentUsers().then(res => {
         this.userTableData = res.users;
         this.total = res.total;
       });
     },10000);
-  }
+  },
 };
 </script>
 
