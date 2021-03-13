@@ -25,7 +25,6 @@
             <span slot="prepend"><i class="el-icon-edit"></i></span>
           </el-input>
         </el-form-item>
-
         <el-form-item prop="userType">
           <el-radio-group v-model="formData.userType">
             <el-radio label="1">学生</el-radio>
@@ -33,18 +32,15 @@
             <el-radio label="3">教务管理员</el-radio>
           </el-radio-group>
         </el-form-item>
-
         <div class="login-btn" v-loading="this.$store.state.loading">
           <el-button @click="submit()" type="primary">登录</el-button>
         </div>
-
         <a   href="javascript:void(0)"
              class="qqIcon"
              @click="qqLoginClick('qq')"
              id="qqLoginBtn"
         ><img src="../../public/static/qqLogin.png"  style="padding-top: 2px;" align="right"/></a>
       </el-form>
-	  
     </div>
   </div>
 </template>
@@ -114,7 +110,7 @@ export default {
   position: relative;
   width: 100%;
   height: 100%;
-  background-image: url("../assets/login-background.jpg");
+  background-image: url("../assets/login-background.jpeg");
   background-size: 100% 100%;
 }
 
@@ -129,7 +125,7 @@ export default {
 
 .login-form {
   position: absolute;
-  left: 50%;
+  left: 30%;
   top: 50%;
   width: 350px;
   margin: -190px 0 0 -175px;

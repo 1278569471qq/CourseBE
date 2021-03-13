@@ -139,17 +139,17 @@ SideBarItem.items = [
   },
   {
     icon: "el-icon-fa fa-id-badge",
-    index: "/admin/admin",
-    title: "管理员管理",
-    userType: UserType.admin,
-    permission: Permission.admin
-  },
-  {
-    icon: "el-icon-fa fa-id-badge",
     index: "/feedback",
     title: "日志详情",
     userType: UserType.admin,
     permission: Permission.log
+  },
+  {
+    icon: "el-icon-fa fa-id-badge",
+    index: "/admin/admin",
+    title: "管理员管理",
+    userType: UserType.admin,
+    permission: Permission.admin
   }
 ];
 
