@@ -1,7 +1,7 @@
 <template>
   <div class="login-wrap">
     <div class="login-form">
-      <div class="form-title">课程管理系统</div>
+      <div class="form-title">大学生在线选课系统</div>
       <el-form
         :model="formData"
         :rules="rules"
@@ -10,8 +10,7 @@
         ref="form"
       >
         <el-form-item prop="username">
-          <el-input placeholder="学号/工号/用户名" v-model="formData.username">
-            <span slot="prepend"><i class="el-icon-user"></i></span>
+          <el-input class="textarea" placeholder="学号/工号/用户名" v-model="formData.username" prefix-icon="el-icon-user">
           </el-input>
         </el-form-item>
 
@@ -21,8 +20,9 @@
             placeholder="密码"
             type="password"
             v-model="formData.password"
+            prefix-icon="el-icon-edit"
+            class="textarea"
           >
-            <span slot="prepend"><i class="el-icon-edit"></i></span>
           </el-input>
         </el-form-item>
         <el-form-item prop="userType">
@@ -33,13 +33,14 @@
           </el-radio-group>
         </el-form-item>
         <div class="login-btn" v-loading="this.$store.state.loading">
-          <el-button @click="submit()" type="primary">登录</el-button>
+          <el-button style="border-radius: 30px;height: 44px" @click="submit()" type="primary">点击登录</el-button>
         </div>
+        <el-divider content-position="center" style="color: #8c939d;"><span class="divider11">第三方登陆</span></el-divider>
         <a   href="javascript:void(0)"
              class="qqIcon"
              @click="qqLoginClick('qq')"
              id="qqLoginBtn"
-        ><img src="../../public/static/qqLogin.png"  style="padding-top: 2px;" align="right"/></a>
+        ><img src="../../public/static/qq.png" class="login-qq"/></a>
       </el-form>
     </div>
   </div>
@@ -118,22 +119,31 @@ export default {
   width: 100%;
   line-height: 50px;
   text-align: center;
-  font-size: 20px;
-  color: #fff;
-  border-bottom: 1px solid #ddd;
+  font-size: 40px;
+  font-weight: bold;
+  color: #3a8ee6;
 }
 
 .login-form {
   position: absolute;
-  left: 30%;
-  top: 50%;
-  width: 350px;
+  left: 20%;
+  top: 45%;
+  width: 425px;
   margin: -190px 0 0 -175px;
-  border-radius: 5px;
-  background: rgba(0, 0, 0, 0.6);
+  border-radius: 30px;
+  background: rgba(0, 0, 0, 0);
   overflow: hidden;
 }
-
+.textarea>>>.el-input__inner{
+  border-radius: 30px;
+  height: 47px;
+}
+.divider11>>>.el-divider{
+  color: #8c939d;
+}
+.el-divider__text {
+  color: #a8acb5;
+}
 .form-content {
   padding: 30px 30px;
 }
@@ -146,8 +156,13 @@ export default {
   width: 100%;
   height: 36px;
 }
-
+.login-qq {
+  width: 10%;
+  height: 10%;
+  padding-left: 46%;
+  align:center;
+}
 .el-radio {
-  color: #fff;
+  color: #8c939d;
 }
 </style>
