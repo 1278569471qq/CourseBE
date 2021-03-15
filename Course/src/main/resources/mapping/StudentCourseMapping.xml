@@ -89,7 +89,7 @@
         FROM rc_student_course
                  JOIN rc_course on sc_course_id = course_id
                  JOIN rc_teacher on course_teacher_id = teacher_id
-        WHERE sc_student_id = #{studentId}
+        WHERE sc_student_id = #{studentId} and sc_score == null
     </select>
 
     <select id="getTeacherGradePage" resultType="TeacherGradeItemVO">

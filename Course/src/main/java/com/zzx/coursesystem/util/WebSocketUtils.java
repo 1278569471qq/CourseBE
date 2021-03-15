@@ -49,12 +49,7 @@ public class WebSocketUtils {
     //建立连接成功调用
     @OnOpen
     public void onOpen(Session session, @PathParam(value = "sid") String userName){
-        Session ses = sessionPools.get(userName);
-        if (ses == null) {
-            sessionPools.put(userName, session);
-        } else {
-            sessionPools.put(userName+ UUID.randomUUID().toString().substring(0, 6), session);
-        }
+        sessionPools.put(userName, session);
         addOnlineCount();
         System.out.println(userName + "进入log页面！当前人数为" + onlineNum);
     }
