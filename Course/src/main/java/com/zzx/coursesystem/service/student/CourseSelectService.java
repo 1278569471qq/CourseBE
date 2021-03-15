@@ -93,4 +93,11 @@ public class CourseSelectService extends BaseService {
         String[] spilt = time.split("-");
         return spilt[0] + "-" + spilt[1];
     }
+
+    public ResultVO allow() {
+        if (!optionManager.getAllowStudentSelect()) {
+            return result(true);
+        }
+        return result(false);
+    }
 }

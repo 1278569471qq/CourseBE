@@ -2,6 +2,10 @@ import * as ajax from "../../common/ajax";
 
 export const select = id => ajax.post("/student/course/select/" + id, {});
 
+
+export const allow = () => ajax.pureGet("/student/course/select/isAllow");
+
+
 export const getPageCount = (courseName, teacherName) =>
   ajax.get("/student/course/select/page/count", {
     courseName: courseName,

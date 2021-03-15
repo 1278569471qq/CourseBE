@@ -38,7 +38,7 @@
             <el-autocomplete
               @keyup.enter.native="query"
               placeholder="课程名"
-              v-model="queryForm.name"
+              v-model="queryForm.courseName"
               :fetch-suggestions="querySearchCour"
               :trigger-on-focus="false"
             ><i slot="prefix" class="el-input__icon el-icon-search"></i></el-autocomplete>
@@ -46,8 +46,8 @@
           <el-col :span="3">
             <el-autocomplete
               @keyup.enter.native="query"
-              placeholder="专业名"
-              v-model="queryForm.majorName"
+              placeholder="学生姓名"
+              v-model="queryForm.studentName"
               :fetch-suggestions="querySearchMaj"
               :trigger-on-focus="false"
             ><i slot="prefix" class="el-input__icon el-icon-search"></i></el-autocomplete>

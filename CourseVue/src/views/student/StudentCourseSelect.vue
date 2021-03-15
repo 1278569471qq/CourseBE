@@ -53,6 +53,7 @@
                 @click="select(scope.row.courseId)"
                 size="mini"
                 type="success"
+                :disabled="allow"
                 >选修
               </el-button>
             </template>
@@ -88,7 +89,8 @@ export default {
       tableData: [],
       pageSize: api.pageSize,
       pageCount: 1,
-      pageIndex: 1
+      pageIndex: 1,
+      allow: false
     };
   },
   methods: {
@@ -121,6 +123,9 @@ export default {
   },
   created() {
     this.query();
+    api.allow().then(res =>{
+      this.allow = res;
+    });
   }
 };
 </script>

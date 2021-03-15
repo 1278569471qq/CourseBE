@@ -5,6 +5,7 @@ import com.zzx.coursesystem.controller.BaseController;
 import com.zzx.coursesystem.model.vo.response.ResultVO;
 import com.zzx.coursesystem.service.student.CourseSelectService;
 
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,4 +36,10 @@ public class CourseSelectController extends BaseController {
     public ResultVO create(@PathVariable Integer id) {
         return service.create(id);
     }
+
+    @GetMapping ("/isAllow")
+    public ResultVO isAllow() {
+        return service.allow();
+    }
+
 }
