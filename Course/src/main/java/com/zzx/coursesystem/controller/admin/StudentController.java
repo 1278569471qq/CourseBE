@@ -6,8 +6,10 @@ import com.zzx.coursesystem.model.entity.StudentEntity;
 import com.zzx.coursesystem.model.vo.response.ResultVO;
 import com.zzx.coursesystem.service.admin.StudentService;
 
+import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @Admin(Admin.STUDENT_MANAGE)
 @RequestMapping("/admin/student")
@@ -59,4 +61,17 @@ public class StudentController extends BaseController {
     public ResultVO listName() {
         return service.listName();
     }
+
+    @RequestMapping("/upload")
+    public ResultVO upload(@RequestParam(value = "file") MultipartFile file){
+        if (file == null) {
+            return failedResult("文件不能为空");
+        }
+        String originalFilename = file.getOriginalFilename();
+        if (StringUtils.endsWithIgnoreCase(originalFilename, "xlsx")) {
+            return failedResult("文件只支持xlsx");
+        }
+        return result("success");
+    }
+
 }

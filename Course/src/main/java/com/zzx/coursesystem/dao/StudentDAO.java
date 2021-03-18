@@ -3,8 +3,11 @@ package com.zzx.coursesystem.dao;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zzx.coursesystem.dao.mapper.StudentMapper;
+import com.zzx.coursesystem.manager.student.CourseManager;
+import com.zzx.coursesystem.model.entity.StudentCourseEntity;
 import com.zzx.coursesystem.model.entity.StudentEntity;
 import com.zzx.coursesystem.model.vo.response.StudentInfoVO;
+import com.zzx.coursesystem.model.vo.response.table.StudentCourseSelectedItemVO;
 import com.zzx.coursesystem.model.vo.response.table.StudentItemVO;
 
 import org.springframework.stereotype.Repository;
@@ -16,8 +19,11 @@ public class StudentDAO extends BaseDAO {
     public static final int PAGE_SIZE = 20;
     private final StudentMapper mapper;
 
-    public StudentDAO(StudentMapper mapper) {
+    private final CourseManager manager;
+
+    public StudentDAO(StudentMapper mapper, CourseManager manager) {
         this.mapper = mapper;
+        this.manager = manager;
     }
 
     public StudentEntity getByNumber(String number) {
@@ -50,8 +56,13 @@ public class StudentDAO extends BaseDAO {
 
     public List<StudentItemVO> getPage(Integer index, String majorName, String className, String name) {
         Page<StudentItemVO> page = new Page<>(index, PAGE_SIZE);
-
-        return mapper.getPage(page, majorName, className, name).getRecords();
+        List<StudentItemVO> records = mapper.getPage(page, majorName, className, name).getRecords();
+        for (StudentItemVO record : records) {
+            List<StudentCourseSelectedItemVO> courseSelectedItemVOS = manager.listStudentCourseSelected(record.getId());
+            long count = courseSelectedItemVOS.stream().filter(s -> s.getScore() != null && s.getScore() > 60).mapToInt(StudentCourseSelectedItemVO::getCredit).sum();
+            record.setScore(count);
+        }
+        return records;
     }
 
     public Integer countByClassId(Integer id) {

@@ -50,10 +50,10 @@ export default {
         if (res.loggedIn && this.webSock == null) {
           const url = Config.backSockUrl + "/user/" + res.username;
           this.webSock = new WebSocket(url);
-          this.webSock.onmessage = this.webSocketOnMessage();
-          this.webSock.onopen = this.webSocketOnopen();
-          this.webSock.onerror = this.webSocketOnError();
-          this.webSock.onclose = this.webSocketClose();
+          this.webSock.onmessage = this.webSocketOnMessage;
+          this.webSock.onopen = this.webSocketOnopen;
+          this.webSock.onerror = this.webSocketOnError;
+          this.webSock.onclose = this.webSocketClose;
         } else {
           return;
         }
@@ -66,7 +66,7 @@ export default {
       // this.websocketsend(JSON.stringify(actions));
     },
     webSocketOnError() {
-      console.log("//连接建立失败重连");
+      console.log("//user连接建立失败重连");
       this.initWebSocket();
     },
     webSocketOnMessage(e) {
@@ -106,7 +106,7 @@ export default {
 <style scoped>
 .content-box {
   position: absolute;
-  left: 200px;
+  left: 170px;
   right: 0;
   top: 70px;
   bottom: 0;
@@ -116,7 +116,6 @@ export default {
 .content {
   width: auto;
   height: 100%;
-  padding: 10px;
   overflow-y: scroll;
   box-sizing: border-box;
 }

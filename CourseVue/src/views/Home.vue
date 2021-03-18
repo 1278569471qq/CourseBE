@@ -125,7 +125,7 @@ export default {
 }
 
 .aside-container {
-  width: 90%;
+  width: 100%;
   margin-left: auto;
   margin-right: auto;
   height: 200px;

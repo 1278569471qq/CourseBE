@@ -11,10 +11,21 @@
     <div class="container">
       <div class="query-form">
         <el-row :gutter="20">
-          <el-col :span="2">
-            <el-button @click="create" icon="el-icon-plus" circle></el-button>
+          <el-col :span="1.5">
+            <el-button @click="create" size="small" type="primary">添加</el-button>
           </el-col>
-          <el-col :offset="10" :span="3">
+          <el-col :span="2">
+            <el-upload
+                    :on-success="success"
+                    :with-credentials="true"
+                    :show-file-list="false"
+                    class="upload-demo"
+                    action="http://127.0.0.1:8080/admin/student/upload"
+                    :on-change="handleChange">
+              <el-button size="small" type="primary">批量导入</el-button>
+            </el-upload>
+          </el-col>
+          <el-col :offset="7" :span="3">
             <el-autocomplete
               @keyup.enter.native="query"
               placeholder="学生姓名"
@@ -52,12 +63,12 @@
           <el-table-column label="学号" prop="number" />
           <el-table-column label="姓名" prop="name" />
           <el-table-column label="班级" prop="className" />
-          <el-table-column label="专业" min-width="150px" prop="majorName" />
-          <el-table-column label="性别" prop="sex" width="80px" />
+          <el-table-column label="专业" prop="majorName" />
+          <el-table-column label="性别" prop="sex"  />
+          <el-table-column label="学分" prop="score"  />
           <el-table-column
             label="上次登录"
             prop="lastLoginTime"
-            width="130px"
           />
           <el-table-column align="center" label="操作" width="200px">
             <template slot-scope="scope">
@@ -161,6 +172,13 @@ export default {
               : majorDepartments;
       // 调用 callback 返回建议列表的数据
       cb(results);
+    },
+    handleChange(file, fileList) {
+      this.fileList = fileList.slice(-3);
+    },
+    success(){
+      this.$message.success("上传成功");
+      this.created();
     },
     querySearchClass(queryString, cb) {
       const claDepartments = this.claDepartments;

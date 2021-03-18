@@ -13,6 +13,7 @@ public class StudentItemVO {
     private String className;
     private String majorName;
     private Integer sex;
+    private Long score;
     @JsonFormat(pattern = "yyyy/MM/dd HH:mm")
     private Date lastLoginTime;
 }
