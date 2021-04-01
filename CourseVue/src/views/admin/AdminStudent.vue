@@ -12,19 +12,19 @@
       <div class="query-form">
         <el-row :gutter="20">
           <el-col :span="1.5">
-            <el-button @click="create" size="small" type="primary">添加</el-button>
+            <el-button @click="create" icon="el-icon-plus" circle></el-button>
           </el-col>
-          <el-col :span="2">
-            <el-upload
-                    :on-success="success"
-                    :with-credentials="true"
-                    :show-file-list="false"
-                    class="upload-demo"
-                    action="http://127.0.0.1:8080/admin/student/upload"
-                    :on-change="handleChange">
-              <el-button size="small" type="primary">批量导入</el-button>
-            </el-upload>
-          </el-col>
+<!--          <el-col :span="2">-->
+<!--            <el-upload-->
+<!--                    :on-success="success"-->
+<!--                    :with-credentials="true"-->
+<!--                    :show-file-list="false"-->
+<!--                    class="upload-demo"-->
+<!--                    action="http://127.0.0.1:8080/admin/student/upload"-->
+<!--                    :on-change="handleChange">-->
+<!--              <el-button size="small" type="primary">批量导入</el-button>-->
+<!--            </el-upload>-->
+<!--          </el-col>-->
           <el-col :offset="7" :span="3">
             <el-autocomplete
               @keyup.enter.native="query"

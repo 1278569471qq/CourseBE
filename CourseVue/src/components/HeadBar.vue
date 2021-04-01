@@ -3,7 +3,7 @@
     <div class="header-ico">
       <i class="el-icon-s-home"></i>
     </div>
-    <div class="logo">课程管理系统</div>
+    <div class="logo">大学生在线选课系统</div>
     <div class="head-right">
       <div class="head-user-con">
         <div @click="handleFullScreen" class="btn-fullscreen">
@@ -119,8 +119,8 @@ export default {
   width: 100%;
   height: 70px;
   font-size: 22px;
-  color: #fff;
-  background-color: #242f42;
+  color: #242f42;
+  background-color: #fff;
 }
 
 .header-ico {
@@ -162,7 +162,7 @@ export default {
 }
 
 .btn-bell .el-icon-bell {
-  color: #fff;
+  color: #000000;
 }
 
 .user-name {
@@ -181,7 +181,7 @@ export default {
 }
 
 .el-dropdown-link {
-  color: #fff;
+  color: #000000;
   cursor: pointer;
 }
 

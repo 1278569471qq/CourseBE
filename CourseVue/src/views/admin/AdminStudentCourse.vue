@@ -178,7 +178,7 @@ export default {
   },
   methods: {
     querySearchMaj(queryString, cb) {
-      const majDepartments = this.majDepartments;
+      const majDepartments = this.students;
       const results = queryString
               ? majDepartments.filter(this.createFilterPinyin(queryString))
               : majDepartments;
@@ -208,8 +208,8 @@ export default {
       };
     },
     getLikeData() {
-      adminApi.getLikeData(1).then(res => {
-        this.majDepartments = res;
+      adminApi.getLikeData(4).then(res => {
+        this.students = res;
       });
       adminApi.getLikeData(3).then(res => {
         this.claDepartments = res;

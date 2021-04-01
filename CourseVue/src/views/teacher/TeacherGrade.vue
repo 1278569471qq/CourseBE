@@ -47,7 +47,7 @@
                 @click="edit(scope.row.studentCourseId)"
                 size="mini"
                 type="success"
-                >打分
+                :disabled="allow">打分
               </el-button>
             </template>
           </el-table-column>
@@ -109,7 +109,8 @@ export default {
       pageSize: api.pageSize,
       pageCount: 1,
       pageIndex: 1,
-      editing: false
+      editing: false,
+      allow: true
     };
   },
   methods: {
@@ -121,6 +122,11 @@ export default {
           this.pageIndex = 1;
           this.getPage(1);
         });
+    },
+    allow(){
+      api.getAllow().then(res => {
+        this.allow=res;
+      })
     },
     getPage(pageIndex) {
       api

@@ -1,6 +1,8 @@
 package com.zzx.coursesystem.controller.teacher;
 
 import com.zzx.coursesystem.config.themis.annotation.Teacher;
+import com.zzx.coursesystem.controller.BaseController;
+import com.zzx.coursesystem.manager.OptionManager;
 import com.zzx.coursesystem.model.vo.TeacherGradeVO;
 import com.zzx.coursesystem.model.vo.response.ResultVO;
 import com.zzx.coursesystem.service.teacher.GradeService;
@@ -11,11 +13,13 @@ import org.springframework.web.bind.annotation.*;
 @Teacher
 @RequestMapping("/teacher/grade")
 @RestController
-public class GradeController {
+public class GradeController extends BaseController {
     private final GradeService service;
+    private final OptionManager optionManager;
 
-    public GradeController(GradeService service) {
+    public GradeController(GradeService service, OptionManager optionManager) {
         this.service = service;
+        this.optionManager = optionManager;
     }
 
     @RequestMapping("/page/count")
@@ -36,5 +40,13 @@ public class GradeController {
     @PutMapping
     public ResultVO update(@RequestBody @Validated TeacherGradeVO vo) {
         return service.update(vo);
+    }
+
+    @GetMapping("/allow")
+    public ResultVO allow(){
+        if (!optionManager.getAllowTeacherGrade()) {
+            return result(false);
+        }
+        return result(true);
     }
 }
