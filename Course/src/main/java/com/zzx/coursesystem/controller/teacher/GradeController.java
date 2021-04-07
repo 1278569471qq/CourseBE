@@ -45,8 +45,8 @@ public class GradeController extends BaseController {
     @GetMapping("/allow")
     public ResultVO allow(){
         if (!optionManager.getAllowTeacherGrade()) {
-            return result(false);
+            return result(true);
         }
-        return result(true);
+        return result(false);
     }
 }

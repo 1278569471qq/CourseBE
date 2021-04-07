@@ -59,7 +59,7 @@ public class StudentDAO extends BaseDAO {
         List<StudentItemVO> records = mapper.getPage(page, majorName, className, name).getRecords();
         for (StudentItemVO record : records) {
             List<StudentCourseSelectedItemVO> courseSelectedItemVOS = manager.listStudentCourseSelected(record.getId());
-            long count = courseSelectedItemVOS.stream().filter(s -> s.getScore() != null && s.getScore() > 60).mapToInt(StudentCourseSelectedItemVO::getCredit).sum();
+            long count = courseSelectedItemVOS.stream().filter(s -> s.getScore() != null && s.getScore() >= 60).mapToInt(StudentCourseSelectedItemVO::getCredit).sum();
             record.setScore(count);
         }
         return records;

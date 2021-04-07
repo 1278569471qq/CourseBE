@@ -84,6 +84,11 @@ public class CourseDAO extends BaseDAO {
 
         return mapper.getStudentCanSelectPage(page, studentId, departmentId, grade, courseName, teacherName).getRecords();
     }
+    public List<StudentCourseSelectItemBO> getAllStudentCanSelectPage(Integer index, Integer studentId, Integer departmentId, Integer grade, String courseName, String teacherName) {
+        Page<StudentCourseSelectItemBO> page = new Page<>(index, 100000);
+
+        return mapper.getStudentCanSelectPage(page, studentId, departmentId, grade, courseName, teacherName).getRecords();
+    }
 
     public Integer getDepartmentIdById(Integer courseId) {
         return mapper.getDepartmentIdById(courseId);

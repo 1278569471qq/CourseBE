@@ -12,18 +12,22 @@
       <div class="query-form">
         <el-row :gutter="20">
           <el-col :offset="15" :span="3">
-            <el-input
-              @keyup.enter.native="query"
-              placeholder="课程名"
-              v-model="queryForm.courseName"
-            />
+            <el-autocomplete
+                @keyup.enter.native="query"
+                placeholder="课程名"
+                v-model="queryForm.courseName"
+                :fetch-suggestions="querySearchCour"
+                :trigger-on-focus="false"
+            ><i slot="prefix" class="el-input__icon el-icon-search"></i></el-autocomplete>
           </el-col>
           <el-col :span="3">
-            <el-input
-              @keyup.enter.native="query"
-              placeholder="教师名"
-              v-model="queryForm.teacherName"
-            />
+            <el-autocomplete
+                @keyup.enter.native="query"
+                placeholder="教师"
+                v-model="queryForm.teacherName"
+                :fetch-suggestions="querySearchTeacher"
+                :trigger-on-focus="false"
+            ><i slot="prefix" class="el-input__icon el-icon-search"></i></el-autocomplete>
           </el-col>
           <el-col :span="3">
             <el-button @click="query" icon="el-icon-search" type="primary"
@@ -77,6 +81,7 @@
 
 <script>
 import * as api from "../../api/student/courseSelect";
+import * as adminApi from "../../api/admin/admin";
 
 export default {
   name: "StudentCourseSelect",
@@ -90,6 +95,8 @@ export default {
       pageSize: api.pageSize,
       pageCount: 1,
       pageIndex: 1,
+      courseDepartments: [],
+      teaDepartments: [],
       allow: false
     };
   },
@@ -102,6 +109,34 @@ export default {
           this.pageIndex = 1;
           this.getPage(1);
         });
+      adminApi.getStudentLikeData(1).then(res => {
+        this.courseDepartments = res;
+      });
+      adminApi.getStudentLikeData(2).then(res => {
+        this.teaDepartments = res;
+      });
+    },
+    querySearchCour(queryString, cb) {
+      const courseDepartments = this.courseDepartments;
+      const results = queryString
+          ? courseDepartments.filter(this.createFilterPinyin(queryString))
+          : courseDepartments;
+      // 调用 callback 返回建议列表的数据
+      cb(results);
+    },
+    createFilterPinyin(queryString) {
+      return restaurants => {
+        return (restaurants.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0) ||
+            (restaurants.pinyin.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
+      };
+    },
+    querySearchTeacher(queryString, cb) {
+      const teaDepartments = this.teaDepartments;
+      const results = queryString
+          ? teaDepartments.filter(this.createFilterPinyin(queryString))
+          : teaDepartments;
+      // 调用 callback 返回建议列表的数据
+      cb(results);
     },
     getPage(pageIndex) {
       api

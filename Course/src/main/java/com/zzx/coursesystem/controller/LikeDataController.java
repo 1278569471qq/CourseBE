@@ -7,7 +7,16 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
+import javax.servlet.http.HttpSession;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.zzx.coursesystem.dao.mapper.CourseMapper;
+import com.zzx.coursesystem.dao.mapper.StudentCourseMapper;
+import com.zzx.coursesystem.manager.LoginStatusManager;
+import com.zzx.coursesystem.manager.student.CourseSelectManager;
+import com.zzx.coursesystem.model.bo.LoginStatusBO;
+import com.zzx.coursesystem.model.bo.StudentCourseSelectItemBO;
+import com.zzx.coursesystem.model.vo.response.table.TeacherGradeItemVO;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -38,6 +47,7 @@ import com.zzx.coursesystem.util.PinYinUtils;
 @RestController
 @EnableScheduling
 public class LikeDataController  extends BaseController{
+    private LoginStatusManager loginStatusManager;
     private ClassDAO classDAO;
     private CourseDAO courseDAO;
     private StudentDAO studentDAO;
@@ -45,18 +55,25 @@ public class LikeDataController  extends BaseController{
     private MajorDAO majorDAO;
     private TeacherDAO teacherDAO;
     private CacheMap cacheMap;
-    public LikeDataController(ClassDAO classDAO,
+    private final StudentCourseMapper mapper;
+    private final CourseSelectManager courseSelectManager;
+    private final HttpSession session;
+    public LikeDataController(LoginStatusManager loginStatusManager, ClassDAO classDAO,
                               CourseDAO courseDAO,
                               StudentDAO studentDAO,
                               DepartmentDAO departmentDAO,
                               MajorDAO majorDAO,
-                              TeacherDAO teacherDAO) {
+                              TeacherDAO teacherDAO, StudentCourseMapper mapper, CourseMapper courseMapper, CourseSelectManager courseSelectManager, HttpSession session) {
+        this.loginStatusManager = loginStatusManager;
         this.classDAO = classDAO;
         this.courseDAO = courseDAO;
         this.studentDAO = studentDAO;
         this.departmentDAO = departmentDAO;
         this.majorDAO = majorDAO;
         this.teacherDAO = teacherDAO;
+        this.mapper = mapper;
+        this.courseSelectManager = courseSelectManager;
+        this.session = session;
     }
     @PostConstruct
     public void init(){
@@ -141,7 +158,53 @@ public class LikeDataController  extends BaseController{
         }
         return  failedResult("false");
     }
+    @RequestMapping("/teacher/likeData/{type}")
+    public ResultVO getTeacherLikeData(@PathVariable int type) {
+        Page<TeacherGradeItemVO> page = new Page<>(1, 10000);
+        LoginStatusBO loginStatus = loginStatusManager.getLoginStatus(session);
+        List<TeacherGradeItemVO> records = mapper.getTeacherGradePage(page, loginStatus.getUserId(), null, null).getRecords();
+        switch (type) {
+            case 1 :{
+                Set<Map<Object, Object>> collect = records.stream()
+                        .map(entity ->
+                                Maps(entity.getStudentName()))
+                        .collect(Collectors.toSet());
+                return result(collect);
+            }
+            case 2 : {
+                Set<Map<Object, Object>> collect = records.stream()
+                        .map(entity ->
+                                Maps(entity.getCourseName()))
+                        .collect(Collectors.toSet());
+                return result(collect);
+            }
+        }
+        return  failedResult("false");
+    }
 
+    @RequestMapping("/student/likeData/{type}")
+    public ResultVO getStudentLikeData(@PathVariable int type) {
+        Page<TeacherGradeItemVO> page = new Page<>(1, 10000);
+        LoginStatusBO loginStatus = loginStatusManager.getLoginStatus(session);
+        List<StudentCourseSelectItemBO> selectManagerPage = courseSelectManager.getAllPage(1, loginStatus.getUserId(), null, null);
+        switch (type) {
+            case 1 :{
+                Set<Map<Object, Object>> collect = selectManagerPage.stream()
+                        .map(entity ->
+                                Maps(entity.getCourseName()))
+                        .collect(Collectors.toSet());
+                return result(collect);
+            }
+            case 2 : {
+                Set<Map<Object, Object>> collect = selectManagerPage.stream()
+                        .map(entity ->
+                                Maps(entity.getTeacherName()))
+                        .collect(Collectors.toSet());
+                return result(collect);
+            }
+        }
+        return  failedResult("false");
+    }
     public Map<Object, Object> Maps(String value) {
         Map<Object, Object> map = new HashMap<>();
         map.put("value", value);

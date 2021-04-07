@@ -38,6 +38,12 @@ public class CourseSelectManager extends BaseManager {
         List<StudentCourseSelectItemBO> studentCanSelectPage = courseDAO.getStudentCanSelectPage(index, studentId, departmentId, grade, courseName, teacherName);
         return studentCanSelectPage;
     }
+    public List<StudentCourseSelectItemBO> getAllPage(Integer index, Integer studentId, String courseName, String teacherName) {
+        Integer departmentId = studentDAO.getDepartmentIdById(studentId);
+        Integer grade = studentDAO.getGradeById(studentId);
+        List<StudentCourseSelectItemBO> studentCanSelectPage = courseDAO.getAllStudentCanSelectPage(index, studentId, departmentId, grade, courseName, teacherName);
+        return studentCanSelectPage;
+    }
 
     public CourseEntity getCourseById(Integer courseId) {
         return courseDAO.get(courseId);

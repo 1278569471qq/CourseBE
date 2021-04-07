@@ -12,19 +12,24 @@
       <div class="query-form">
         <el-row :gutter="20">
           <el-col :offset="15" :span="3">
-            <el-input
-              @keyup.enter.native="query"
-              placeholder="课程名"
-              v-model="queryForm.courseName"
-            />
+            <el-autocomplete
+                @keyup.enter.native="query"
+                placeholder="课程名"
+                v-model="queryForm.courseName"
+                :fetch-suggestions="querySearchCour"
+                :trigger-on-focus="false"
+            ><i slot="prefix" class="el-input__icon el-icon-search"></i></el-autocomplete>
           </el-col>
           <el-col :span="3">
-            <el-input
-              @keyup.enter.native="query"
-              placeholder="学生名"
-              v-model="queryForm.studentName"
-            />
+            <el-autocomplete
+                @keyup.enter.native="query"
+                placeholder="学生姓名"
+                v-model="queryForm.studentName"
+                :fetch-suggestions="querySearchStu"
+                :trigger-on-focus="false"
+            ><i slot="prefix" class="el-input__icon el-icon-search"></i></el-autocomplete>
           </el-col>
+
           <el-col :span="3">
             <el-button @click="query" icon="el-icon-search" type="primary"
               >搜索
@@ -95,6 +100,7 @@
 
 <script>
 import * as api from "../../api/teacher/grade";
+import * as adminApi from "../../api/admin/admin";
 
 export default {
   name: "TeacherGrade",
@@ -106,6 +112,8 @@ export default {
       },
       entityForm: {},
       tableData: [],
+      student: [],
+      courseDepartments: [],
       pageSize: api.pageSize,
       pageCount: 1,
       pageIndex: 1,
@@ -122,11 +130,17 @@ export default {
           this.pageIndex = 1;
           this.getPage(1);
         });
+      adminApi.getTeacherLikeData(1).then(res => {
+        this.student = res;
+      });
+      adminApi.getTeacherLikeData(2).then(res => {
+        this.courseDepartments = res;
+      });
     },
-    allow(){
+    allowT(){
       api.getAllow().then(res => {
         this.allow=res;
-      })
+      });
     },
     getPage(pageIndex) {
       api
@@ -138,6 +152,28 @@ export default {
         .then(res => {
           this.tableData = res;
         });
+    },
+    createFilterPinyin(queryString) {
+      return restaurants => {
+        return (restaurants.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0) ||
+            (restaurants.pinyin.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
+      };
+    },
+    querySearchStu(queryString, cb) {
+      const stuDepartments = this.student;
+      const results = queryString
+          ? stuDepartments.filter(this.createFilterPinyin(queryString))
+          : stuDepartments;
+      // 调用 callback 返回建议列表的数据
+      cb(results);
+    },
+    querySearchCour(queryString, cb) {
+      const courseDepartments = this.courseDepartments;
+      const results = queryString
+          ? courseDepartments.filter(this.createFilterPinyin(queryString))
+          : courseDepartments;
+      // 调用 callback 返回建议列表的数据
+      cb(results);
     },
     edit(id) {
       api.get(id).then(res => {
@@ -154,6 +190,7 @@ export default {
     }
   },
   created() {
+    this.allowT();
     this.query();
   }
 };

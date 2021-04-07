@@ -11,3 +11,7 @@ export const update = entity => ajax.put("/admin/admin", entity);
 export const list = () => ajax.pureGet("/admin/admin");
 
 export const getLikeData = type => ajax.pureGet("/likeData/" + type);
+
+export const getTeacherLikeData = type => ajax.pureGet("/teacher/likeData/" + type);
+
+export const getStudentLikeData = type => ajax.pureGet("/student/likeData/" + type);
